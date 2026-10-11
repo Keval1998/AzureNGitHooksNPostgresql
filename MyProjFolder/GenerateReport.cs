@@ -19,8 +19,9 @@ public class GenerateReport
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
         return new OkObjectResult(
-            new {
-                reportId: 123,
+            new 
+            {
+                reportId= 123,
                 status = "Queued"
             }
         );
