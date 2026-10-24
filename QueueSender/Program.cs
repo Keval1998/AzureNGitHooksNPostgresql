@@ -16,7 +16,8 @@ var request = new ReportRequest
     ReportId = "rpt-test-001"
 };
 
-var message = JsonSerializer.Serialize(request);
+var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+var message = JsonSerializer.Serialize(request, jsonOptions);
 
 await queueClient.SendMessageAsync(message);
 
