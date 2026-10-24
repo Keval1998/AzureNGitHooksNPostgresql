@@ -21,7 +21,8 @@ public class ProcessReport
             Connection = "AzureWebJobsStorage")]
         string message)
     {
-        var request = JsonSerializer.Deserialize<ReportRequest>(message);
+        var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+        var request = JsonSerializer.Deserialize<ReportRequest>(message, jsonOptions);
 
         if (request is null || string.IsNullOrWhiteSpace(request.ReportId))
         {
