@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using MyProjFolder.Models;
 
 namespace MyProjFolder;
 
@@ -19,8 +21,16 @@ public class ProcessReport
             Connection = "AzureWebJobsStorage")]
         string message)
     {
+        var request = JsonSerializer.Deserialize<ReportRequest>(message);
+
+        if (request is null || string.IsNullOrWhiteSpace(request.ReportId))
+        {
+            throw new InvalidOperationException(
+                "Queue message must contain a non-empty reportId.");
+        }
+
         _logger.LogInformation(
-            "Processing report request: {Message}",
-            message);
+            "Processing report request for ReportId: {ReportId}",
+            request.ReportId);
     }
 }
