@@ -1,4 +1,6 @@
-﻿using Azure.Storage.Queues;
+using System.Text.Json;
+using Azure.Storage.Queues;
+using QueueSender.Models;
 
 var connectionString = "UseDevelopmentStorage=true";
 var queueName = "report-requests";
@@ -9,7 +11,12 @@ var queueClient = new QueueClient(
 
 await queueClient.CreateIfNotExistsAsync();
 
-var message = """{"reportId":"rpt-test-001"}""";
+var request = new ReportRequest
+{
+    ReportId = "rpt-test-001"
+};
+
+var message = JsonSerializer.Serialize(request);
 
 await queueClient.SendMessageAsync(message);
 
