@@ -48,3 +48,21 @@ Remaining outcomes:
 - PostgreSQL: demonstrate schema/constraints, CRUD/joins, transactions, query plans/indexes, a PL/pgSQL routine, and .NET/Npgsql integration.
 - CI/CD: observed passing workflow for build/test and database validation, with limitations documented.
 - Record what was implemented, tested, and remains pending.
+## Schedule variance and time tracking (reviewed 2026-10-25)
+
+### Original estimate and plan
+- The earlier integrated plan estimated **15h 45m–19h total focused work** for Azure fundamentals, GitHub Actions CI/CD, PostgreSQL revision, and an integrated .NET cloud-readiness lab.
+- The accelerated schedule was later set to Oct 21–Nov 7: Azure queue milestone Oct 21–24; review Oct 25; PostgreSQL + CI/CD Oct 26–Nov 1; integration/interview readiness Nov 2–7.
+- The Azure queue milestone took longer than planned due to queue/storage debugging. The local happy path was verified on Oct 24; invalid/poison handling was deliberately deferred.
+
+### Honest status
+- No reliable per-session focused-minute log was maintained, so actual total time spent and exact hours lost cannot be reconstructed from chat timestamps. Do not invent actuals.
+- The prior assistant's estimate of 10–14 remaining available hours was a rough forecast, not a tracked fact, and it did not reconcile the original 15h45m–19h estimate or Azure overrun. Treat that forecast as withdrawn.
+- Schedule variance is confirmed qualitatively: Azure debugging consumed more time than its original slot, and PostgreSQL setup/schema work is still underway as of Oct 25. Exact variance in hours is unknown.
+
+### Recovery rule
+- Starting with the next study session, record actual focused minutes at session end, plus milestone result and next step. When session duration is not provided or observable, mark it **not recorded** rather than estimating it.
+- At each session start, show target milestone, planned minutes, cumulative planned hours, verified completion, remaining estimate, and buffer.
+- Preserve a buffer by reserving the final 15–20% of remaining available time for integration, fixes, and review. If the original deadline cannot fit the remaining work plus buffer, recommend scope reduction or a revised deadline explicitly; do not silently compress the schedule.
+- Do not count local Azure emulation as cloud deployment. Real Azure deployment is excluded from current estimates because the learner has not opted into Azure account/trial setup.
+- Re-estimate the remaining plan by inspecting the actual repo/workflow and by sizing only the minimum demonstrable vertical slice; avoid counting optional topics as mandatory.
