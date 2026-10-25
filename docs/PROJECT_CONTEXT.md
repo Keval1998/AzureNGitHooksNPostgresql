@@ -2,36 +2,50 @@
 
 Repository: Keval1998/AzureNGitHooksNPostgresql. Active branch: AzureFunctionsBegin. Do not touch main unless the learner explicitly asks.
 
+## Roles and workflow
+- Study Coach owns roadmap, learner-facing teaching, progress/time tracking, and independent review.
+- `.github/agents/developer.agent.md` owns delegated implementation and documentation edits.
+- `.github/agents/review.agent.md` is the independent review checklist/role.
+- The Study Coach should delegate repository implementation instead of directly editing code/docs, then review the result and explain it to the learner. If the interface cannot invoke an autonomous named agent, be transparent that the written agent contract was followed using GitHub tools.
+- Keep docs synchronized after meaningful progress: this file for durable context, `docs/SESSION_LOG.md` for dated results and next handoff, and `docs/POSTGRESQL_ROADMAP.md` for milestone status changes.
+
 ## Purpose and learning style
-Practical learning for PostgreSQL, CI/CD, and Azure, building on the learner's C#/.NET, Angular, SQL/MySQL, REST API, and some AWS experience. Goal: develop demonstrable skills for .NET backend/product-engineering roles and return to interview preparation on schedule. Teach calmly in small hands-on chunks. Inspect files/configuration before giving commands. Keep familiar backend concepts brief and prioritize implementation.
+Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angular, SQL/MySQL, REST API, and some AWS experience. Goal: demonstrable skills for .NET backend/product-engineering roles and return to interview preparation on schedule. Teach calmly in small hands-on chunks. Explain why before commands; inspect files/configuration before giving commands. Keep familiar backend concepts brief and prioritize implementation.
 
 ## Environment and constraints
 - GitHub Codespaces is the current environment.
-- A PostgreSQL 16 Docker Compose service has been added in `docker-compose.yml`; this file is configuration, not proof the container has started successfully. Verify in the learner's Codespace.
+- Docker Compose PostgreSQL 16 is configured in `docker-compose.yml`. On 2026-10-25 the learner's screenshot confirmed container `study-postgres` was healthy, with host port 5432 published, and `psql` connected to `studydb`.
 - Azure CLI was checked previously and is unavailable; do not ask the learner to repeat the check.
 - Learner cannot currently access Azure Portal and decided not to sign up for an Azure trial or provide a card due to billing/account-management overhead.
 - Do not create cloud resources or revisit signup unless explicitly asked. Continue local Functions/Azurite and Azure-specific configuration/deployment learning.
 - Actual Azure deployment remains pending/unverified. Never present local emulation as cloud deployment.
+- Compose credentials are disposable local-learning credentials only.
 
 ## Project structure
 - `MyProjFolder`: .NET 10 isolated-worker Azure Functions v4 project. Functions include `MyHttpTrigger`, `GenerateReport`, and `ProcessReport`. `host.json` sets queue `messageEncoding` to `none`.
 - `MyProjFolder/Models/ReportRequest.cs`: worker-side request model.
 - `QueueSender`: .NET 10 console app using `Azure.Storage.Queues`.
 - `QueueSender/Models/ReportRequest.cs`: sender-side request model.
-- `QueueSender/Program.cs` serializes a `ReportRequest` using `System.Text.Json` web defaults before sending to `report-requests`.
+- `QueueSender/Program.cs` serializes `ReportRequest` using `System.Text.Json` web defaults before sending to `report-requests`.
 - `MyProjFolder/ProcessReport.cs` deserializes JSON with matching web defaults, validates nonblank `ReportId`, and logs the ID.
-- `docker-compose.yml`: local PostgreSQL 16 service, database `studydb`, user `studyuser`, named volume `postgres_data`, health check. Credentials are disposable local-learning credentials only.
-- `docs/POSTGRESQL_ROADMAP.md`: practical roadmap and completion criteria.
+- `docker-compose.yml`: local PostgreSQL 16 service, database `studydb`, user `studyuser`, named volume `postgres_data`, health check.
+- `docs/POSTGRESQL_ROADMAP.md`: practical learning roadmap and completion criteria.
 
-## Current Azure checkpoint
-Local Azurite queue flow was verified by the learner's screenshot: `ProcessReport` logged `rpt-test-001` and completed Succeeded in 221 ms. This verifies local happy-path runtime only. The assistant did not independently run a build; Azure deployment has not been tested. Local settings should remain untracked.
-Azurite 3.37.0 previously rejected the Storage Queues SDK 12.28.1 API version; `--skipApiVersionCheck` was used as a local workaround. Verify actual versions/errors before reusing it.
+## Verified and unverified checkpoints
+- Local Azurite queue flow was verified by the learner's screenshot: `ProcessReport` logged `rpt-test-001` and completed Succeeded in 221 ms. This verifies local happy-path runtime only. Independent build and Azure deployment were not verified.
+- PostgreSQL container health and successful psql connection were confirmed in the learner's 2026-10-25 screenshot. `SELECT current_database();` returned `studydb`. A first attempt used the misspelling `currrent_database()` and failed as expected.
+- The learner created a table accidentally named `report_requets` (typo) with a manually assigned `INTEGER PRIMARY KEY`; then `\d report_requests` failed because that exact name doesn't exist. The SQL returned `CREATE TABLE`, so the misspelled table exists in the current local database. Recover cleanly by renaming it to `report_requests` (or drop/recreate if no data, explicitly explaining choice), and then verify the schema. Note that its `id` column is not yet auto-generated; do not silently claim it uses identity.
+- Azurite 3.37.0 previously rejected Storage Queues SDK 12.28.1 API version; `--skipApiVersionCheck` was used as a local workaround. Verify actual versions/errors before reusing it.
+- Local settings should remain untracked.
 
 ## Roadmap
-1. **Current focus: PostgreSQL practicals.** Start the Compose service in Codespaces; verify container health and run the first query. Then learn schema/constraints/CRUD/joins, PostgreSQL-specific features, transactions, indexes and EXPLAIN, PL/pgSQL functions, and .NET integration with Npgsql. Use one small milestone per session. Follow `docs/POSTGRESQL_ROADMAP.md`.
-2. **Next: CI/CD.** Add or improve GitHub Actions to build/test the existing .NET project and validate SQL against a disposable PostgreSQL service. Learn deployment workflow concepts without claiming a cloud deployment occurred.
-3. **Azure-specific learning continues locally** through Functions configuration, bindings, identity/RBAC concepts, and local testing. Real cloud deployment can be revisited only if access becomes straightforward and the learner opts in.
-4. Keep sender and worker models separate for now; the queue boundary is JSON. Do not introduce a shared class library without a concrete need.
+1. **Current focus: PostgreSQL practicals.** Compose container health and psql connection are confirmed. Finish first table/schema verification, then CRUD/constraints/joins; PostgreSQL-specific features; transactions; indexes/EXPLAIN; PL/pgSQL; and .NET/Npgsql integration. One small milestone per session.
+2. **Next: CI/CD.** GitHub Actions build/test existing .NET project and validate SQL against disposable PostgreSQL; learn deployment workflow without claiming cloud deployment.
+3. **Azure-specific learning continues locally** through Functions configuration, bindings, identity/RBAC concepts, and local testing. Real cloud deployment only if access becomes straightforward and learner opts in.
+4. Keep sender and worker models separate for now; queue boundary is JSON. Do not introduce shared class library without a concrete need.
 5. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
+
+## Timeline
+The latest recorded target is **2026-11-07** for the accelerated roadmap: PostgreSQL + CI/CD focus through Nov 1, then integration/interview-readiness work Nov 2–7. On each session, compare verified progress against this target; if the plan is slipping, state the trade-off and propose a scoped adjustment rather than silently changing the date.
 
 Respect session boundaries and distinguish repository-file verification, build verification, local runtime verification, and Azure deployment. See `docs/SESSION_LOG.md` for the latest handoff.
