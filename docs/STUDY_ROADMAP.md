@@ -66,3 +66,18 @@ Remaining outcomes:
 - Preserve a buffer by reserving the final 15–20% of remaining available time for integration, fixes, and review. If the original deadline cannot fit the remaining work plus buffer, recommend scope reduction or a revised deadline explicitly; do not silently compress the schedule.
 - Do not count local Azure emulation as cloud deployment. Real Azure deployment is excluded from current estimates because the learner has not opted into Azure account/trial setup.
 - Re-estimate the remaining plan by inspecting the actual repo/workflow and by sizing only the minimum demonstrable vertical slice; avoid counting optional topics as mandatory.
+## Re-baselined remaining effort (2026-10-25; planning estimate, not actuals)
+Estimate is for the minimum demonstrable vertical slice, excluding real Azure cloud deployment and optional deep dives:
+- Azure configuration/bindings, identity/RBAC, deployment concepts: 2–2.5 focused hours.
+- PostgreSQL schema/CRUD/joins/transactions/core features: 2.5–3.5 hours.
+- PostgreSQL indexes/query plans, PL/pgSQL, and .NET/Npgsql integration: 3–4 hours.
+- CI/CD build/test plus PostgreSQL validation in GitHub Actions: 2–3 hours.
+- Integrated verification and interview explanations: 1–1.5 hours.
+- **Base estimate: 10.5–14.5 focused hours.** Add 15–20% contingency (about 2–3 hours); total planning envelope **12.5–17.5 hours**.
+- This is a scoped estimate, not a verified promise. Inspect existing workflow, tests, and actual integration state at the next technical checkpoint and re-estimate. If the work does not fit the remaining availability before Nov 7, propose a scope cut or date change explicitly.
+
+### Daily/session time tracking
+- Actual focused minutes for prior sessions are not reliably recorded and must remain unknown; do not infer them from message timestamps.
+- Current session planned cap: 20 additional focused minutes to complete the PostgreSQL schema/identity decision and first insert only if the learner confirms they have that time. The exact remaining daily budget is **not measurable from current records**; the user's usual weekend availability was 2–2.5 hours combined, not a confirmed remaining balance for today.
+- At the end of each session, record learner-reported or explicitly measured focused minutes. If neither is available, record `not recorded` and do not calculate a fictitious cumulative actual.
+- Each checkpoint review must recalculate: completed evidence, remaining task estimates, total remaining base hours, buffer, available hours before target, schedule variance, and a go/adjust decision. Use a second review against the repository state before declaring estimates reliable.
