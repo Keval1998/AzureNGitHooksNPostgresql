@@ -35,3 +35,10 @@ Learner screenshot evidence: `study-postgres` is healthy, PostgreSQL 16.15 is ru
 Next learner step: at the active `studydb=#` prompt, run `ALTER TABLE report_requets RENAME TO report_requests;` then `\\d report_requests`. This preserves the created table and teaches a useful rename operation. Then inspect the output before deciding whether to adjust the id column to identity. Do not insert data until the table structure is confirmed.
 
 Timeline remains Nov 7, 2026. No independent build or Azure deployment was verified in this session.
+
+## 2026-10-25 — Roadmap clarification: Azure remains an explicit track
+Learner correctly flagged that recent coaching made the plan look PostgreSQL-only. Azure was not intended to be dropped, but the overall roadmap did not make its continued milestones visible enough. Added `docs/STUDY_ROADMAP.md` with separate Azure Functions, PostgreSQL, and CI/CD tracks, current constraints, timeline through 2026-11-07, and evidence-based completion criteria. Updated `docs/PROJECT_CONTEXT.md` to point to the integrated roadmap.
+
+Azure remains active through local Functions/Azurite practice, configuration/bindings, isolated-worker/DI/logging/telemetry, identity/RBAC concepts, and deployment pipeline understanding. Actual cloud deployment remains pending/unverified because the learner has no Azure Portal access and chose not to start a trial or provide a card. Keep PostgreSQL as the current hands-on focus while reserving Azure review time; CI/CD follows. Do not silently remove Azure from the schedule.
+
+Latest learner screenshot confirms the table rename succeeded: `ALTER TABLE report_requets RENAME TO report_requests;` returned `ALTER TABLE`, and `\\d report_requests` displays the table. Its `id` is still `INTEGER PRIMARY KEY` without automatic identity generation. Next PostgreSQL step is to adjust/confirm the id strategy before inserting sample rows, then proceed to INSERT/RETURNING/SELECT.
