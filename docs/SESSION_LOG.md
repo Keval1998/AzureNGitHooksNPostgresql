@@ -26,3 +26,12 @@ Learner will pull the latest `AzureFunctionsBegin` branch. Next, explain Docker 
 5. Run `SELECT version();` and `SELECT current_database();`, then exit with `\q`.
 
 If Docker/Compose errors, diagnose the actual output before suggesting a fallback. Do not claim runtime verification until the learner confirms results. Never touch `main`.
+
+## 2026-10-25 — Development delegation and PostgreSQL first-table recovery
+Added `.github/agents/developer.agent.md` to own delegated implementation and documentation edits. Updated the Study Coach role contract: coaching/roadmap/progress/review stays with Study Coach; implementation is delegated; Review Agent guidance is used independently; docs are synchronized at meaningful session boundaries. Updated `docs/PROJECT_CONTEXT.md` with the role split, verified PostgreSQL state, actual typo/schema details, and the Nov 7 target.
+
+Learner screenshot evidence: `study-postgres` is healthy, PostgreSQL 16.15 is running, and `current_database()` returned `studydb`. The earlier function error was caused by typing `currrent_database()` (misspelling). A table was successfully created as `report_requets` (misspelled) with columns `id INTEGER PRIMARY KEY`, `report_name VARCHAR(100) NOT NULL`, `status VARCHAR(20) DEFAULT 'pending'`, and `created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp`. The subsequent `\\d report_requests` failed because the actual table name differs. The id column is not auto-generated; do not claim identity behavior.
+
+Next learner step: at the active `studydb=#` prompt, run `ALTER TABLE report_requets RENAME TO report_requests;` then `\\d report_requests`. This preserves the created table and teaches a useful rename operation. Then inspect the output before deciding whether to adjust the id column to identity. Do not insert data until the table structure is confirmed.
+
+Timeline remains Nov 7, 2026. No independent build or Azure deployment was verified in this session.
