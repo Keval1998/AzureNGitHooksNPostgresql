@@ -39,11 +39,9 @@ Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angula
 - Local settings should remain untracked.
 
 ## Roadmap
-1. **Current focus: PostgreSQL practicals.** Compose container health and psql connection are confirmed. Finish first table/schema verification, then CRUD/constraints/joins; PostgreSQL-specific features; transactions; indexes/EXPLAIN; PL/pgSQL; and .NET/Npgsql integration. One small milestone per session.
-2. **Next: CI/CD.** GitHub Actions build/test existing .NET project and validate SQL against disposable PostgreSQL; learn deployment workflow without claiming cloud deployment.
-3. **Azure-specific learning continues locally** through Functions configuration, bindings, identity/RBAC concepts, and local testing. Real cloud deployment only if access becomes straightforward and learner opts in.
-4. Keep sender and worker models separate for now; queue boundary is JSON. Do not introduce shared class library without a concrete need.
-5. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
+The overall roadmap is maintained in `docs/STUDY_ROADMAP.md`. Azure is a continuing track, not dropped: local Functions/Azurite, configuration/bindings, identity/RBAC concepts, and deployment pipeline understanding remain explicit outcomes. PostgreSQL is the current hands-on focus; CI/CD follows, with Azure review and integration time reserved. Real Azure deployment remains pending unless access becomes available and the learner opts in.
+
+Current detailed PostgreSQL milestones are in `docs/POSTGRESQL_ROADMAP.md`. Keep sender and worker models separate for now; queue boundary is JSON. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
 
 ## Timeline
 The latest recorded target is **2026-11-07** for the accelerated roadmap: PostgreSQL + CI/CD focus through Nov 1, then integration/interview-readiness work Nov 2–7. On each session, compare verified progress against this target; if the plan is slipping, state the trade-off and propose a scoped adjustment rather than silently changing the date.
