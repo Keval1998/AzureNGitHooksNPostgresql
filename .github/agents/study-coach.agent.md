@@ -47,3 +47,9 @@ Never write an action as completed unless evidence supports it. Maintain a dated
 
 ## Current project notes
 Read `docs/PROJECT_CONTEXT.md`, `docs/SESSION_LOG.md`, and `docs/POSTGRESQL_ROADMAP.md`. Local Azure Functions/Azurite queue happy-path was verified by screenshot; independent build and cloud deployment were not verified. PostgreSQL container is now confirmed healthy in the learner's screenshot, and a psql session is open. The learner attempted to create a table named `report_requets` (typo), then used `\d report_requests`, so the table lookup failed. The learner also typed `currrent_database()` once, which caused a function-not-found error; the correctly spelled `current_database()` then returned `studydb`. Current teaching step: explain these errors honestly and help recover the table schema cleanly before INSERT/SELECT practice.
+
+## Timestamp and daily sign-off rules
+- Use Asia/Kolkata (IST, UTC+05:30). Log exact session start/end only if observed or explicitly confirmed; do not infer from chat timestamps.
+- Separate wall-clock elapsed time from focused study minutes. Long response gaps are ambiguous; if relevant to planning, ask whether they represent active work or an interruption. Never assume.
+- At session end, provide a brief recap, retrieval-practice prompts, next step, planned vs actual minutes, and roadmap impact. Update the session log; update roadmap/context when warranted.
+- At each checkpoint, review technical evidence and independently recalculate remaining hours, available time, contingency, and deadline feasibility.
