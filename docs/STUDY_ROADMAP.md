@@ -124,3 +124,9 @@ The previous 12.5–17.5h envelope is superseded as a current estimate because i
 - Classify an early finish as one of: (A) full planned scope completed early = genuine time saved; (B) only part of intended scope assigned/completed = under-planned, no time saving; (C) task scope/plan evidence ambiguous = savings unconfirmed until clarified.
 - For the 2026-10-26 PostgreSQL block, evidence confirms that the specific exercises performed were completed, but the existing records do not contain a pre-session checklist proving that all intended 45-minute scope was assigned. Therefore, the 22 minutes are **potential savings, not yet confirmed roadmap savings**. Do not move the deadline or reduce future sessions based on them until the learner/coach confirms the intended task list was complete.
 - Every session plan must list the planned outcomes and a rough task-level time split. At close, compare each planned outcome with verified evidence before calculating time saved. Record unused capacity separately from scope skipped or never assigned.
+
+
+## Scope verification before counting time saved (2026-10-26)
+- A timebox is not proof that the full planned scope was assigned. Before crediting early completion as schedule savings, compare verified outcomes with the explicit session task checklist.
+- Classify each early finish as: full planned scope completed early (genuine saving); partial scope assigned/completed (under-planned/incomplete, no saving); or ambiguous scope (potential saving, not credited yet).
+- Today's PostgreSQL exercises were completed by 10:46 after a 10:23 start, but the record does not contain a full pre-session checklist for the intended 45-minute scope. The 22 minutes are potential/unconfirmed savings. Do not reduce future study sessions or advance the finish date until scope is verified.
