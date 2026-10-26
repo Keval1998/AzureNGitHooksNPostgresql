@@ -71,3 +71,11 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Next session: finish the relationship example using `LEFT JOIN` to show reports without a department, then transactions (`BEGIN`, `COMMIT`, `ROLLBACK`), constraints and indexes/EXPLAIN. Prioritize PostgreSQL-specific/practical depth and comparisons with MySQL; avoid spending time re-teaching basic SQL the learner already knows.
 - Evidence status: local PostgreSQL commands verified by learner screenshots. No Azure cloud deployment or CI/CD evidence changed in this session.
 - Time: start 10:23 IST is recorded; learner reported 10:30 during the session, but exact end time/focused duration was not confirmed. Do not infer total focused minutes from message timing.
+
+
+## 2026-10-26 — PostgreSQL focused continuation (15-minute block)
+- Start timestamp: 2026-10-26 10:46 IST (UTC+05:30), based on available local-time context.
+- Planned focused budget: 15 minutes, learner-requested continuation to create buffer for unexpected days.
+- Starting state: prior screenshot verified multi-row insert, filtering/sorting, grouping/counting, `UPDATE ... RETURNING`, departments table with identity and unique name, foreign key, and successful `INNER JOIN`.
+- Target: demonstrate `LEFT JOIN` and identify the report with no department; then begin a small transaction exercise if time permits.
+- Previous session's exact end time and focused minutes remain unrecorded; do not infer a speed-up in minutes. Learner reports they were focused and not distracted in the prior block.
