@@ -117,3 +117,10 @@ The previous 12.5–17.5h envelope is superseded as a current estimate because i
 - Provisional base: 8–11 focused hours. Add approximately 15–20% contingency (1.5–2.2h), giving about 9.5–13.2 focused hours remaining.
 - This is a planning estimate, not logged actual time. It excludes real Azure cloud deployment, which remains out of scope unless the learner opts in. Confirm repo/workflow state before treating the estimate as reliable.
 - From 2026-10-26 to the 2026-11-07 target there are 12 calendar days including today (11 days after today). Calendar days are not equivalent to study sessions; schedule status is provisional until actual remaining availability is compared with the estimate.
+
+
+## Session scope vs. time-saved accounting (2026-10-26 clarification)
+- Never call unused planned minutes a schedule saving until verifying that the full planned scope for the block was delivered. Track both the time budget and the task/outcome checklist.
+- Classify an early finish as one of: (A) full planned scope completed early = genuine time saved; (B) only part of intended scope assigned/completed = under-planned, no time saving; (C) task scope/plan evidence ambiguous = savings unconfirmed until clarified.
+- For the 2026-10-26 PostgreSQL block, evidence confirms that the specific exercises performed were completed, but the existing records do not contain a pre-session checklist proving that all intended 45-minute scope was assigned. Therefore, the 22 minutes are **potential savings, not yet confirmed roadmap savings**. Do not move the deadline or reduce future sessions based on them until the learner/coach confirms the intended task list was complete.
+- Every session plan must list the planned outcomes and a rough task-level time split. At close, compare each planned outcome with verified evidence before calculating time saved. Record unused capacity separately from scope skipped or never assigned.
