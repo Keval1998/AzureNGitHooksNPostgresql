@@ -106,3 +106,14 @@ Before each session, compare the current roadmap with `docs/SESSION_LOG.md` and 
 - Once daily, report: planned vs actual minutes, tasks verified complete, remaining focused-hour estimate, available study days before 2026-11-07, buffer gained/lost, and schedule status. Only move the finish date earlier (e.g. 2026-11-06) after recalculating all remaining tasks and contingency.
 - Human-behaviour feedback must cite evidence in session logs and stay constructive. Recommend evening catch-up only if the plan is genuinely behind and the learner confirms it is practical; do not guilt or assume availability.
 - Current remaining base estimate from the prior baseline is 10.5–14.5 focused hours, plus 2–3 hours contingency (12.5–17.5 hours total), but it is stale and includes PostgreSQL basics that are now completed. Re-estimate after reviewing the remaining milestones and mark the old figure superseded rather than treating it as current truth.
+
+
+## Provisional remaining-effort recalculation (2026-10-26)
+The previous 12.5–17.5h envelope is superseded as a current estimate because it included PostgreSQL schema/CRUD/joins/transactions that are now evidenced as completed. Based on the remaining required outcomes only, use this provisional estimate until a focused repository/workflow review verifies scope:
+- PostgreSQL indexes/EXPLAIN, PL/pgSQL, and .NET/Npgsql integration: 3–4 focused hours.
+- Azure configuration/bindings, identity/RBAC, and deployment concepts: 2–2.5 focused hours.
+- CI/CD build/test and PostgreSQL validation: 2–3 focused hours.
+- Integrated verification, fixes, and interview explanation: 1–1.5 focused hours.
+- Provisional base: 8–11 focused hours. Add approximately 15–20% contingency (1.5–2.2h), giving about 9.5–13.2 focused hours remaining.
+- This is a planning estimate, not logged actual time. It excludes real Azure cloud deployment, which remains out of scope unless the learner opts in. Confirm repo/workflow state before treating the estimate as reliable.
+- From 2026-10-26 to the 2026-11-07 target there are 12 calendar days including today (11 days after today). Calendar days are not equivalent to study sessions; schedule status is provisional until actual remaining availability is compared with the estimate.
