@@ -79,3 +79,11 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Starting state: prior screenshot verified multi-row insert, filtering/sorting, grouping/counting, `UPDATE ... RETURNING`, departments table with identity and unique name, foreign key, and successful `INNER JOIN`.
 - Target: demonstrate `LEFT JOIN` and identify the report with no department; then begin a small transaction exercise if time permits.
 - Previous session's exact end time and focused minutes remain unrecorded; do not infer a speed-up in minutes. Learner reports they were focused and not distracted in the prior block.
+
+
+## 2026-10-26 — Session-budget protocol correction
+- Learner feedback: Study Coach must consult dated session logs and roadmap before planning, use saved timestamps/minutes, clarify current availability before assigning timed work, update records at meaningful checkpoints, and explicitly report whether the day's work is done and whether the schedule is ahead/on track/delayed.
+- Updated `.github/agents/study-coach.agent.md` and `docs/STUDY_ROADMAP.md` on `AzureFunctionsBegin` with a mandatory session-budget gate: inspect logs first, confirm current available time, timestamp checkpoints, calculate remaining budget, stop at agreed limit, and state schedule status with evidence.
+- Today's technical milestone completed: `LEFT JOIN` demonstrated all five reports including the NULL department; transaction rollback restored report id 1 to `processing`. The learner confirmed the work is done.
+- Schedule status for this 15-minute block: the planned technical milestone was completed. Exact end timestamp/actual focused minutes were not captured in the saved log before this correction, so whether it finished ahead by minutes cannot be calculated reliably. Do not invent a duration. Going forward, use checkpoint timestamps and ask for confirmation where current availability or focus status is missing.
+- No CI/CD progress or Azure cloud deployment evidence added. Target remains 2026-11-07; the overall ahead/on-track/delayed status needs a full remaining-work vs. available-hours checkpoint rather than being inferred from one fast SQL session.
