@@ -43,6 +43,8 @@ The overall roadmap is maintained in `docs/STUDY_ROADMAP.md`. Azure is a continu
 
 Current detailed PostgreSQL milestones are in `docs/POSTGRESQL_ROADMAP.md`. Keep sender and worker models separate for now; queue boundary is JSON. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
 
+- Current repository inspection (2026-10-27): no `.github/workflows/` directory or dedicated test project is present in the `AzureFunctionsBegin` tree; `MyProjFolder/MyProjFolder.csproj` does not reference Npgsql. GitHub Actions and .NET/PostgreSQL integration therefore need implementation, not just conceptual review. Treat this as a schedule risk and re-estimate after laptop-side build/test inspection.
+
 ## Timeline
 The latest recorded target is **2026-11-07** for the accelerated roadmap: PostgreSQL + CI/CD focus through Nov 1, then integration/interview-readiness work Nov 2–7. On each session, compare verified progress against this target; if the plan is slipping, state the trade-off and propose a scoped adjustment rather than silently changing the date.
 
