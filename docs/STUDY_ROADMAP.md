@@ -130,3 +130,9 @@ The previous 12.5–17.5h envelope is superseded as a current estimate because i
 - A timebox is not proof that the full planned scope was assigned. Before crediting early completion as schedule savings, compare verified outcomes with the explicit session task checklist.
 - Classify each early finish as: full planned scope completed early (genuine saving); partial scope assigned/completed (under-planned/incomplete, no saving); or ambiguous scope (potential saving, not credited yet).
 - Today's PostgreSQL exercises were completed by 10:46 after a 10:23 start, but the record does not contain a full pre-session checklist for the intended 45-minute scope. The 22 minutes are potential/unconfirmed savings. Do not reduce future study sessions or advance the finish date until scope is verified.
+
+
+## 2026-10-27 schedule audit
+Today's PostgreSQL index/EXPLAIN and PL/pgSQL status-count function were verified by learner screenshots. Remaining effort is provisionally 6.5–9.5 focused hours base plus 15–20% contingency (about 7.5–11.4 hours total), pending inspection of the actual .NET tests and CI workflow.
+
+**Schedule status: insufficient evidence.** The previous closeout used the label at risk without confirming available study hours/sessions through 2026-11-07. That label was not supported and is corrected in the session log. Missing availability is not proof of risk or safety. Confirm actual available study slots, inspect project/workflow state, then compare capacity with remaining work plus contingency. Do not credit today's unused block capacity as savings; focused minutes and comparable full-scope timing were not confirmed. Target remains 2026-11-07; Azure remains an explicit track, and real cloud deployment remains excluded unless the learner opts in.
