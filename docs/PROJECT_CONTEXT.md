@@ -47,3 +47,9 @@ Current detailed PostgreSQL milestones are in `docs/POSTGRESQL_ROADMAP.md`. Keep
 The latest recorded target is **2026-11-07** for the accelerated roadmap: PostgreSQL + CI/CD focus through Nov 1, then integration/interview-readiness work Nov 2–7. On each session, compare verified progress against this target; if the plan is slipping, state the trade-off and propose a scoped adjustment rather than silently changing the date.
 
 Respect session boundaries and distinguish repository-file verification, build verification, local runtime verification, and Azure deployment. See `docs/SESSION_LOG.md` for the latest handoff.
+
+
+## Interview-oriented coaching and weekly availability (2026-10-27)
+The learner's goal is interview readiness for .NET backend/product roles. Practical work must map to interview explanations and include PostgreSQL/Npgsql integration, GitHub Actions CI/CD build/test with PostgreSQL validation, Azure Functions configuration/bindings/identity/logging/deployment concepts, and integrated review. Do not treat this as a generic learning course or omit CI/CD from schedule estimates.
+
+Confirmed recurring availability: laptop Monday/Tuesday 60 minutes each; mobile Wednesday-Friday 30 minutes each; weekends 2 hours. For 2026-10-28 through 2026-11-07, planned capacity is 11 hours if all slots are used; this is not confirmed attendance or focused actuals. Provisional remaining work including contingency is 8.1-11.4 hours and requires repository/workflow validation. The schedule is borderline at the high end; Nov 7 remains the target.
