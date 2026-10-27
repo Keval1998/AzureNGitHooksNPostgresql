@@ -19,3 +19,7 @@ Use the repository's Docker Compose service to run PostgreSQL 16 locally in GitH
 
 ## Completion bar
 Do not claim PostgreSQL proficiency based only on installing the database. The learner should be able to explain and demonstrate schema design, joins, transactions, indexes/query plans, PostgreSQL-specific features, one PL/pgSQL routine, and .NET integration. Record what was actually implemented and tested. Keep each session to one milestone and preserve the existing Azure/CI/CD roadmap.
+
+
+## Status update — 2026-10-27
+Completed with learner screenshot evidence: B-tree index and composite-index exercise using EXPLAIN ANALYZE; first PL/pgSQL function with status-count results and explicit NULL rejection. The tiny five-row table continued to use Seq Scan plus Sort, which is expected and does not demonstrate an index speedup. Next PostgreSQL milestone: .NET integration using Npgsql, parameterized async calls, and error handling.
