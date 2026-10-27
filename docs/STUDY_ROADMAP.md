@@ -5,8 +5,8 @@ Build demonstrable skills for .NET backend/product-engineering roles by **2026-1
 
 ## Constraints and working agreement
 - Environment: GitHub Codespaces; keep sessions small and hands-on.
-- Azure Portal access is unavailable, and Azure CLI was previously confirmed unavailable. The learner chose not to start an Azure trial or provide a card. Do not create cloud resources or revisit account setup unless explicitly asked.
-- Therefore, learn Azure through the existing .NET isolated-worker Functions project, local Azurite, Functions configuration/bindings, identity/RBAC and deployment concepts. Actual Azure deployment remains pending; local emulation is not cloud deployment.
+- Azure Portal access is unavailable, and Azure CLI was previously confirmed unavailable. The learner explicitly decided not to create an Azure subscription/trial, provide a payment card, activate billing, or provision cloud resources. Do not revisit account setup unless the learner explicitly changes this decision.
+- Therefore, learn Azure through the existing .NET isolated-worker Functions project, local Azurite, Functions configuration/bindings, identity/RBAC and deployment concepts, without cloud account setup. Actual Azure cloud deployment is excluded from the current roadmap/Nov 7 target; local emulation is not cloud deployment.
 - PostgreSQL runs locally via Docker Compose in Codespaces.
 - Study Coach owns sequencing, teaching, timeline, and review. Development Agent owns delegated code/config/docs changes. Review Agent criteria are used for independent review.
 - After meaningful sessions, sync project context and dated session log; update milestone status only with evidence.
