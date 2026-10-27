@@ -144,3 +144,40 @@ Learner confirmed weekly availability: Monday/Tuesday laptop 60 minutes each; We
 Interview-oriented remaining scope must explicitly include Npgsql integration (1.5-2.5h), CI/CD build/test and PostgreSQL service validation (2-3h), Azure configuration/bindings, identity/RBAC, logging/telemetry and deployment concepts (2-2.5h), and integrated verification/interview walkthrough (1-1.5h). Provisional base: 7-9.5h; plus 15-20% contingency gives about 8.1-11.4h. This is a planning estimate pending inspection of actual code, tests and workflows. The 11-hour capacity overlaps the estimate range, so do not label ahead or safely on track yet; feasibility is **borderline / requires repo-workflow validation and buffer protection**. Keep Nov 7 as target for now.
 
 Next session (Wed Oct 28, mobile, 30 minutes): learn/retrieve GitHub Actions workflow anatomy and practise a concise interview explanation; no repository editing required on mobile. Next laptop session: inspect current project/tests/workflows, then implement Npgsql integration and CI/CD database validation in dependency-aware order. Keep Azure as an explicit track. Do not ask for daily availability before proposing the task and duration from this schedule.
+
+
+## Deadline simulation after repository inspection (2026-10-27)
+
+### Newly verified implementation state
+- Active branch `AzureFunctionsBegin` contains the .NET 10 isolated-worker Functions project, a separate queue-sender console project, PostgreSQL 16 Compose service, and PostgreSQL learning evidence.
+- At this checkpoint, the repository tree contains no `.github/workflows/` directory and no dedicated test project. The Functions project does not reference Npgsql. CI/CD and database integration are therefore real implementation work, not merely explanation.
+- Existing Functions `Program.cs` conditionally enables OpenTelemetry/Azure Monitor export when `APPLICATIONINSIGHTS_CONNECTION_STRING` is present. Review this existing setup and explain its local/no-cloud behavior rather than building duplicate observability.
+- No independent build/test run was performed during this remote-file review. Repository contents are verified; build/runtime status remains unverified.
+
+### Capacity and contingency simulation
+- Remaining planned slots through 2026-11-07: 11 hours if every slot is used (Oct 28–30 mobile 90m; Oct 31–Nov 1 weekend 240m; Nov 2–3 laptop 120m; Nov 4–6 mobile 90m; Nov 7 weekend 120m).
+- Protecting 15–20% of those 11 hours for unexpected setup/debugging leaves about 8.8–9.35 hours for planned work.
+- The prior remaining envelope was 8.1–11.4 hours **including** estimated contingency. Its lower portion fits; its upper portion exceeds the usable capacity by about 2.05–2.6 hours. Because workflow/tests are absent and Npgsql is not yet referenced, the deadline is **at risk at the upper end**, not safely on track. Actual attendance/focused minutes remain unconfirmed; this is a forecast, not measured delay.
+
+### Scenarios and response
+- **Smooth path:** Npgsql integration and first working query succeed; a minimal GitHub Actions workflow restores/builds both .NET projects, starts PostgreSQL, waits for health, and runs a small automated database check. Keep Azure review conceptual/local and final interview rehearsal concise. This can fit near the lower/middle estimate.
+- **Likely friction:** package restore, connection string/networking, migration/schema setup, test harness, or PostgreSQL service readiness needs debugging. Use the reserved buffer first; log the blocker and its measured impact, then trim optional PostgreSQL features and deep Azure theory rather than skipping integration/CI proof.
+- **Hard blocker:** Codespaces/Docker or workflow execution unavailable. Keep code changes small, capture the exact failure, and use mobile slots for CI/CD/Azure retrieval practice; do not pretend a file edit equals a passing pipeline. If the pipeline cannot be verified by Nov 7, report it as unverified and adjust the goal/date transparently.
+
+### Priority order and cut line
+1. **Must-have:** Npgsql parameterized async database call, configuration outside source, one verified database operation, and clear exception/cancellation behavior.
+2. **Must-have:** GitHub Actions workflow that builds the actual projects and performs meaningful automated PostgreSQL validation; create only the smallest test harness needed.
+3. **Must-have:** Explain queue flow, PostgreSQL transaction/index/function choices, CI workflow, configuration/secrets, logging/telemetry, and Azure identity/RBAC/deployment concepts without cloud provisioning.
+4. **Cut first if blocked:** optional PostgreSQL JSONB/ON CONFLICT breadth, extra queue poison-message behavior, elaborate test architecture, and deep Azure deployment details.
+5. **Do not cut silently:** Npgsql integration, CI/CD evidence, debugging/review time, or the no-trial/no-card decision.
+
+### Session sequence, with recovery points
+- **Oct 28 mobile (30m):** workflow anatomy and interview explanation; no repo edits.
+- **Oct 29–30 mobile (30m each):** retrieval practice for CI triggers/jobs/services/secrets and Npgsql connection/configuration/error-handling design; these are movable if the previous task needs consolidation.
+- **Oct 31–Nov 1 weekend (2h total):** first laptop-capable implementation block: inspect actual build, add minimal Npgsql path and test it against Compose PostgreSQL. Stop and log any environment blocker rather than expanding scope.
+- **Nov 2–3 laptop (60m each):** create/run GitHub Actions workflow and PostgreSQL validation; fix the first failure, not every optional enhancement.
+- **Nov 4–6 mobile (30m each):** rehearse CI/CD and Azure concepts, review failure scenarios and design trade-offs; if code is blocked, prepare exact debugging steps.
+- **Nov 7 weekend (2h):** final integration check, inspect workflow evidence, rehearse end-to-end interview walkthrough, and record known limitations.
+
+### Review rule
+Recalculate estimates after the first laptop-side build/Npgsql attempt and after the first workflow run. Only label ahead/on-track if observed progress and confirmed capacity support it. Early completion of familiar work is potential buffer until scope and focus are confirmed; new-concept or setup overruns consume buffer.
