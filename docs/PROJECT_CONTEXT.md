@@ -16,7 +16,7 @@ Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angula
 - GitHub Codespaces is the current environment.
 - Docker Compose PostgreSQL 16 is configured in `docker-compose.yml`. On 2026-10-25 the learner's screenshot confirmed container `study-postgres` was healthy, with host port 5432 published, and `psql` connected to `studydb`.
 - Azure CLI was checked previously and is unavailable; do not ask the learner to repeat the check.
-- Learner cannot currently access Azure Portal and decided not to sign up for an Azure trial or provide a card due to billing/account-management overhead.
+- Learner cannot currently access Azure Portal and explicitly decided not to create an Azure subscription/trial, enter card details, activate billing, or create cloud resources due to billing/account-management overhead. Do not revisit this unless the learner explicitly changes the decision.
 - Do not create cloud resources or revisit signup unless explicitly asked. Continue local Functions/Azurite and Azure-specific configuration/deployment learning.
 - Actual Azure deployment remains pending/unverified. Never present local emulation as cloud deployment.
 - Compose credentials are disposable local-learning credentials only.
@@ -39,7 +39,7 @@ Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angula
 - Local settings should remain untracked.
 
 ## Roadmap
-The overall roadmap is maintained in `docs/STUDY_ROADMAP.md`. Azure is a continuing track, not dropped: local Functions/Azurite, configuration/bindings, identity/RBAC concepts, and deployment pipeline understanding remain explicit outcomes. PostgreSQL is the current hands-on focus; CI/CD follows, with Azure review and integration time reserved. Real Azure deployment remains pending unless access becomes available and the learner opts in.
+The overall roadmap is maintained in `docs/STUDY_ROADMAP.md`. Azure is a continuing interview-learning track, not a cloud-provisioning task: local Functions/Azurite, configuration/bindings, identity/RBAC concepts, and deployment-pipeline understanding remain explicit outcomes. PostgreSQL and GitHub Actions CI/CD are hands-on priorities. Actual cloud deployment is excluded from the current target; do not create a trial/subscription, use a card, or provision cloud resources unless the learner explicitly changes this decision.
 
 Current detailed PostgreSQL milestones are in `docs/POSTGRESQL_ROADMAP.md`. Keep sender and worker models separate for now; queue boundary is JSON. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
 
