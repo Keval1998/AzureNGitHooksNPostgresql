@@ -141,3 +141,11 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Schedule decision: capacity (11h) overlaps the effort envelope (8.1-11.4h), leaving little/no buffer at the high end. Classify as borderline / needs repo-workflow validation and buffer protection, not as definitively ahead or delayed. Keep target Nov 7 for now.
 - Next session plan: Wednesday 2026-10-28 is a mobile day, 30 minutes. Task: learn/retrieve GitHub Actions workflow anatomy and practise an interview-ready explanation; no repo edits required. Next laptop session: inspect current project/tests/workflows and implement Npgsql integration and CI database validation in dependency-aware order.
 - Coach process correction: before asking availability, propose the planned task and duration based on the saved schedule. Include CI/CD in all remaining-work estimates and preserve the interview-oriented goal. These rules were added to the Study Coach agent file and roadmap.
+
+## 2026-10-27 — Decision reaffirmation: no Azure trial/card or cloud deployment
+- Learner correctly challenged why RBAC and deployment concepts appeared in the plan when the no-trial/no-card decision was already recorded.
+- Reaffirmed binding constraint: do not create an Azure subscription or trial, enter payment-card details, activate billing, or provision cloud resources unless the learner explicitly changes this decision.
+- Clarification: RBAC means Role-Based Access Control; study it as an interview concept (identity, role, scope, least privilege), not as a task to configure a live Azure subscription.
+- Deployment learning means understanding the path from source control through CI/CD to a running environment, including configuration/secrets, permissions, health checks, logs and rollback. Practise the CI/CD pipeline locally/GitHub Actions; actual Azure cloud deployment is excluded from the current Nov 7 goal.
+- Continue hands-on local .NET Functions/Azurite, PostgreSQL/Npgsql, and GitHub Actions CI/CD with PostgreSQL validation. Local emulator success must not be described as cloud deployment.
+- Documentation correction: durable no-trial/card/cloud-resource decision has been made explicit in PROJECT_CONTEXT and STUDY_ROADMAP on branch AzureFunctionsBegin. Changes were refetched and verified. No changes to main.
