@@ -105,3 +105,11 @@ Once per calendar day, give a concise status report without waiting for a prompt
 
 ### Recovery when the process fails
 If a previous session was mislabelled or a required file was not updated, acknowledge the exact failure, correct the dated record with an audit note (preserve history rather than silently rewriting the past), update agent instructions if needed, verify the commits, and explain what will prevent recurrence. The learner's priority is completing the learning goal, not spending study time supervising the coach.
+
+
+## Interview focus and capacity-first planning (2026-10-27)
+This is an interview-oriented plan, not a generic course. Keep PostgreSQL/.NET integration, GitHub Actions CI/CD, Azure Functions concepts, and interview explanations visible in every estimate. CI/CD must never be omitted from the remaining-work estimate.
+
+Before asking how much time is available, propose the planned task and duration for that date based on saved availability; ask only whether it is feasible or has changed. Laptop days are Monday/Tuesday, 60 minutes; mobile days Wednesday-Friday, 30 minutes; weekends, 2 hours (learner-confirmed 2026-10-27). For 2026-10-28 through 2026-11-07, this pattern yields 11 planned hours if all slots are used; this is capacity, not confirmed attendance or focused actuals.
+
+Provisional remaining work after today's PostgreSQL index/function milestone: Npgsql integration 1.5-2.5h; CI/CD build/test plus PostgreSQL service validation 2-3h; Azure configuration/bindings, identity/RBAC, logging/telemetry and deployment concepts 2-2.5h; integrated verification and interview walkthrough 1-1.5h. Base 7-9.5h plus 15-20% contingency, about 8.1-11.4h total. Verify actual project/tests/workflows before treating this estimate as reliable. On mobile days use concept/retrieval/interview practice; save code/workflow inspection for laptop days.
