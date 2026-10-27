@@ -155,9 +155,9 @@ Next session (Wed Oct 28, mobile, 30 minutes): learn/retrieve GitHub Actions wor
 - No independent build/test run was performed during this remote-file review. Repository contents are verified; build/runtime status remains unverified.
 
 ### Capacity and contingency simulation
-- Remaining planned slots through 2026-11-07: 11 hours if every slot is used (Oct 28–30 mobile 90m; Oct 31–Nov 1 weekend 240m; Nov 2–3 laptop 120m; Nov 4–6 mobile 90m; Nov 7 weekend 120m).
-- Protecting 15–20% of those 11 hours for unexpected setup/debugging leaves about 8.8–9.35 hours for planned work.
-- The prior remaining envelope was 8.1–11.4 hours **including** estimated contingency. Its lower portion fits; its upper portion exceeds the usable capacity by about 2.05–2.6 hours. Because workflow/tests are absent and Npgsql is not yet referenced, the deadline is **at risk at the upper end**, not safely on track. Actual attendance/focused minutes remain unconfirmed; this is a forecast, not measured delay.
+- Remaining planned slots through 2026-11-07: 9 hours if every slot is used, interpreting the learner's 'weekends: 2 hours' as 2 hours total per weekend (Oct 28–30 mobile 90m; Oct 31–Nov 1 weekend 120m total; Nov 2–3 laptop 120m; Nov 4–6 mobile 90m; Nov 7 weekend 120m total).
+- Protecting 15–20% of those 9 hours for unexpected setup/debugging leaves about 7.2–7.65 hours for planned work.
+- The prior remaining envelope was 8.1–11.4 hours **including** estimated contingency. Even its lower end exceeds the usable capacity by about 0.45–0.9 hours; the upper end exceeds it by about 3.75–4.2 hours. Because workflow/tests are absent and Npgsql is not yet referenced, the deadline is **at risk unless scope is reduced or additional time is explicitly made available**; this is a forecast, not a measured delay. Actual attendance/focused minutes remain unconfirmed; this is a forecast, not measured delay.
 
 ### Scenarios and response
 - **Smooth path:** Npgsql integration and first working query succeed; a minimal GitHub Actions workflow restores/builds both .NET projects, starts PostgreSQL, waits for health, and runs a small automated database check. Keep Azure review conceptual/local and final interview rehearsal concise. This can fit near the lower/middle estimate.
