@@ -23,7 +23,7 @@ Learner will pull the latest `AzureFunctionsBegin` branch. Next, explain Docker 
 2. `docker compose up -d postgres`
 3. `docker compose ps`
 4. If healthy, `docker compose exec postgres psql -U studyuser -d studydb`
-5. Run `SELECT version();` and `SELECT current_database();`, then exit with `\q`.
+5. Run `SELECT version();` and `SELECT current_database();`, then exit with `\\q`.
 
 If Docker/Compose errors, diagnose the actual output before suggesting a fallback. Do not claim runtime verification until the learner confirms results. Never touch `main`.
 
@@ -39,23 +39,28 @@ Timeline remains Nov 7, 2026. No independent build or Azure deployment was verif
 ## 2026-10-25 — Roadmap clarification: Azure remains an explicit track
 Learner correctly flagged that recent coaching made the plan look PostgreSQL-only. Azure was not intended to be dropped, but the overall roadmap did not make its continued milestones visible enough. Added `docs/STUDY_ROADMAP.md` with separate Azure Functions, PostgreSQL, and CI/CD tracks, current constraints, timeline through 2026-11-07, and evidence-based completion criteria. Updated `docs/PROJECT_CONTEXT.md` to point to the integrated roadmap.
 
-Azure remains active through local Functions/Azurite practice, configuration/bindings, isolated-worker/DI/logging/telemetry, identity/RBAC concepts, and deployment pipeline understanding. Actual cloud deployment remains pending/unverified because the learner has no Azure Portal access and chose not to start a trial or provide a card. Keep PostgreSQL as the current hands-on focus while reserving Azure review time; CI/CD follows. Do not silently remove Azure from the schedule.
+Azure remains active through local Functions/Azurite practice, configuration/bindings, isolated-worker/DI/logging/telemetry, identity/RBAC concepts, and deployment pipeline understanding. Actual cloud deployment remains pending/unverified because the learner has no Azure Portal access and chose not to start a trial or provide a card. Keep Azure in the schedule. Do not silently remove Azure from the schedule.
 
 Latest learner screenshot confirms the table rename succeeded: `ALTER TABLE report_requets RENAME TO report_requests;` returned `ALTER TABLE`, and `\\d report_requests` displays the table. Its `id` is still `INTEGER PRIMARY KEY` without automatic identity generation. Next PostgreSQL step is to adjust/confirm the id strategy before inserting sample rows, then proceed to INSERT/RETURNING/SELECT.
+
 ## 2026-10-25 — Schedule accountability and time-tracking correction
 Learner correctly challenged why the plan showed a shortage without a buffer. Retrieved prior planning context: the original integrated Azure + GitHub Actions CI/CD + PostgreSQL + .NET Cloud Readiness Lab estimate was 15h45m–19h focused work. An accelerated schedule was later set for Oct 21–Nov 7: Azure queue work Oct 21–24, review Oct 25, PostgreSQL + CI/CD Oct 26–Nov 1, integration/interview readiness Nov 2–7. Azure queue work exceeded its slot due to queue/storage debugging; local happy path was verified Oct 24 and poison/invalid handling deferred.
 
 Accountability: no reliable per-session actual-minute log was maintained, so exact hours spent/lost cannot be reconstructed. The previously stated 10–14 remaining available hours was an unsupported rough forecast that failed to reconcile the original total estimate or Azure overrun; withdraw it rather than treating it as fact. The schedule variance is qualitatively clear, but exact variance in hours is unknown.
 
 Recovery: updated `docs/STUDY_ROADMAP.md` with the original estimate/schedule, known variance, explicit no-fabrication rule, session time-tracking format, and 15–20% buffer policy. From the next session, log focused minutes at the end; mark not recorded if unavailable. At session start, state milestone, planned minutes, cumulative plan, evidence, remaining estimate, and buffer. Inspect actual repo/workflow before final re-estimate. If remaining scope plus buffer does not fit Nov 7, propose a transparent scope cut or date change; do not silently compress. Actual Azure cloud deployment remains excluded unless the learner opts into account setup.
+
 ## 2026-10-25 — Rebaseline remaining hours and daily tracking
 After learner challenged the previous rushed estimate, re-baselined the minimum demonstrable scope (real Azure cloud deployment excluded): Azure 2–2.5h; PostgreSQL schema/CRUD/joins/transactions/core features 2.5–3.5h; indexes/query plans, PL/pgSQL and .NET/Npgsql 3–4h; CI/CD build/test + PostgreSQL validation 2–3h; integration/interview explanations 1–1.5h. Base 10.5–14.5 focused hours; add 15–20% contingency, giving a 12.5–17.5h planning envelope. This remains a planning estimate pending inspection of existing workflow/tests and actual integration state.
 
 Time-tracking integrity: prior actual focused minutes were not recorded and cannot be reconstructed from message timestamps. Do not invent totals. User's normal weekend availability is 2–2.5 hours combined, but today's remaining balance is not confirmed. Current session cap proposed: at most 20 additional focused minutes for PostgreSQL schema/identity decision and first insert, if learner has that time. At each checkpoint, recalculate verified completion, remaining base hours, buffer, available hours before Nov 7, schedule variance and go/adjust decision; perform a second review against actual repository state.
+
 ## 2026-10-25 — PostgreSQL identity and first insert verified
 Learner screenshot confirms the `report_requests` table now accepts an insert without an explicit id and `INSERT INTO report_requests(report_name) VALUES ('Monthly Sales Report') RETURNING id, report_name, status, created_at;` returned one row: id 1, report name `Monthly Sales Report`, status `pending`, and a generated timestamp. This proves identity generation, defaults, and `RETURNING` worked in the learner's Codespace. Two preceding commands failed due to typing `report_requets`/incorrect statement syntax; the corrected statement succeeded. Follow-up screenshot confirms `SELECT * FROM report_requests;` independently retrieved the same stored row (id 1, Monthly Sales Report, pending, timestamp 2026-10-25 07:45:15.83894+00). The first PostgreSQL practice checkpoint is complete: table renamed, identity generation added (supported by generated id on insert), defaults verified, INSERT ... RETURNING and SELECT verified. Next session: continue SQL fundamentals with a deliberate UPDATE then SELECT, then DELETE only after discussing safe predicates; later add a second related table for foreign keys and joins. Stop today's hands-on work here as planned. Actual focused minutes remain unrecorded; learner authorized a 20-minute continuation, but exact start/end timestamps are not observable.
+
 ## 2026-10-25 — Timestamped logging and daily retrieval practice agreement
 Learner requested timestamps and accurate minute accounting, smart but non-assumptive handling of long gaps, and a short daily recap/sign-off to improve retention. Agreed protocol: use Asia/Kolkata (IST, UTC+05:30); log exact start/end only when observed or confirmed; distinguish elapsed wall-clock from focused minutes; never count response latency/idle gaps as study time. If an unusually long gap affects budget, ask naturally whether it was active work or an interruption rather than assuming travel/family calls. At session end provide a concise recap, a few recall prompts, next starting step, planned-vs-actual time with unknowns explicit, and roadmap impact. Perform technical evidence review plus independent schedule/buffer review at checkpoints. Updated `docs/STUDY_ROADMAP.md` with this protocol. Current session exact start time and focused minutes remain unknown retrospectively; do not backfill invented timestamps.
+
 ## 2026-10-26 — Study session start
 - Start timestamp: 2026-10-26 10:23 IST (UTC+05:30), based on the available local-time context.
 - Planned focused budget: 20 minutes (proposed session block; learner has not yet confirmed the exact stop time for today).
@@ -72,7 +77,6 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Evidence status: local PostgreSQL commands verified by learner screenshots. No Azure cloud deployment or CI/CD evidence changed in this session.
 - Time: start 10:23 IST is recorded; learner reported 10:30 during the session, but exact end time/focused duration was not confirmed. Do not infer total focused minutes from message timing.
 
-
 ## 2026-10-26 — PostgreSQL focused continuation (15-minute block)
 - Start timestamp: 2026-10-26 10:46 IST (UTC+05:30), based on available local-time context.
 - Planned focused budget: 15 minutes, learner-requested continuation to create buffer for unexpected days.
@@ -80,23 +84,20 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Target: demonstrate `LEFT JOIN` and identify the report with no department; then begin a small transaction exercise if time permits.
 - Previous session's exact end time and focused minutes remain unrecorded; do not infer a speed-up in minutes. Learner reports they were focused and not distracted in the prior block.
 
-
 ## 2026-10-26 — Session-budget protocol correction
 - Learner feedback: Study Coach must consult dated session logs and roadmap before planning, use saved timestamps/minutes, clarify current availability before assigning timed work, update records at meaningful checkpoints, and explicitly report whether the day's work is done and whether the schedule is ahead/on track/delayed.
 - Updated `.github/agents/study-coach.agent.md` and `docs/STUDY_ROADMAP.md` on `AzureFunctionsBegin` with a mandatory session-budget gate: inspect logs first, confirm current available time, timestamp checkpoints, calculate remaining budget, stop at agreed limit, and state schedule status with evidence.
 - Today's technical milestone completed: `LEFT JOIN` demonstrated all five reports including the NULL department; transaction rollback restored report id 1 to `processing`. The learner confirmed the work is done.
 - Schedule status for this 15-minute block: the planned technical milestone was completed. Exact end timestamp/actual focused minutes were not captured in the saved log before this correction, so whether it finished ahead by minutes cannot be calculated reliably. Do not invent a duration. Going forward, use checkpoint timestamps and ask for confirmation where current availability or focus status is missing.
-- No CI/CD progress or Azure cloud deployment evidence added. Target remains 2026-11-07; the overall ahead/on-track/delayed status needs a full remaining-work vs. available-hours checkpoint rather than being inferred from one fast SQL session.
-
+- No CI/CD progress or Azure cloud deployment evidence added. The target remains 2026-11-07; the overall ahead/on-track/delayed status needs a full remaining-work vs. available-hours checkpoint rather than being inferred from one fast SQL session.
 
 ## 2026-10-26 — Smart pacing correction and current status
 - Learner clarified the simple tracking model: planned tasks and planned time budget are separate. Finish the planned tasks first, then report remaining time and ask whether the learner wants to continue; only recommend another task after opt-in.
 - Learner-provided timing correction for today's 45-minute block: start 10:23 IST, planned tasks complete by 10:46 IST. Calculation: 10:46 − 10:23 = 23 minutes elapsed, so 22 minutes remain in the 45-minute budget. This supersedes the earlier mistaken assumption that only 15 minutes remained. Treat 23 minutes as wall-clock elapsed; focused time is 23 minutes unless the learner later reports an interruption.
-- Verified technical work in this block: PostgreSQL multi-row inserts/queries, GROUP BY counts, UPDATE ... RETURNING, department foreign key, INNER JOIN, LEFT JOIN, and transaction rollback. The learner is familiar with the simpler material and completed the planned SQL tasks faster than budgeted.
+- Verified technical work in this block: PostgreSQL multi-row inserts/queries, aggregation, `UPDATE ... RETURNING`, department foreign key, INNER/LEFT JOIN, and transaction rollback. The learner is familiar with the simpler material and completed the planned SQL tasks faster than budgeted.
 - Coaching adjustment: no extra task is assigned without asking whether the learner wants to use the remaining 22 minutes. If yes, recommend a task sized to fit; if no, record the 22-minute saving as schedule buffer.
 - Once-daily status must include completed tasks, planned vs actual minutes, remaining focused hours, study days to Nov 7, buffer, and schedule status. Give constructive behavioural feedback tied to evidence, not generic disclaimers.
 - Tool/skill discovery: available installed skills were inspected. No dedicated study-session timestamp tracker/coach agent skill was found. GitHub tools can maintain the durable log/roadmap; a current-time source can confirm the clock; automation tools could support a scheduled reminder/report if requested, but they do not replace task-by-task session evidence. Do not claim a separate autonomous Study Coach agent was invoked.
-
 
 ## 2026-10-26 11:05 IST — Daily tracking clarification
 - Current clock checked at 11:05 IST. The learner's planned block was 45 minutes from 10:23; the planned technical tasks were completed by 10:46. Elapsed time to completion: 23 minutes; budget remaining at that checkpoint: 22 minutes. At 11:05, only about 3 minutes remain until the original planned block would end at 11:08. Do not describe the 22 minutes as still available now.
@@ -105,12 +106,10 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Provisional remaining effort estimate from current milestone list: 8–11 focused hours base plus 15–20% contingency (about 1.5–2.2h), total about 9.5–13.2h. This replaces the old 12.5–17.5h estimate for planning purposes, but remains provisional pending repo/workflow review. Target date Nov 7 gives 12 calendar days including today; this alone does not prove on-track status without actual available study hours.
 - No daily schedule status claimed as definitively ahead/on-track because the remaining available focused hours have not yet been measured. Do not convert this one faster session into an overall ahead-of-schedule claim.
 
-
 ## 2026-10-26 — Scope verification before schedule credit
 - Learner pointed out that a 45-minute block finishing in 23 minutes only creates schedule savings if the complete planned scope for today was actually assigned and completed. This distinction must be explicit in daily status.
 - Today's PostgreSQL exercises were completed by 10:46 after a 10:23 start (23 minutes elapsed). However, the session record lacks a complete pre-session checklist proving all intended 45-minute scope was assigned. Therefore, the remaining 22 minutes are potential/unconfirmed savings, not yet credited cumulative schedule buffer.
 - Going forward, record a short task/outcome checklist at session start and verify it at close. Classify early finishes as full scope completed early (genuine saving), partial scope (under-planned/incomplete), or ambiguous (saving unconfirmed). Only confirmed savings can reduce future sessions or advance the finish date.
-
 
 ## 2026-10-27 — PostgreSQL indexes and PL/pgSQL (session close)
 - Start: approximately 10:27 IST (time source checked at 10:26:58); learner confirmed a 40-minute available block, planned stop about 11:07 IST.
@@ -125,14 +124,12 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Next session: inspect project/test/workflow state, integrate PostgreSQL using Npgsql with a parameterized async call, then recalculate feasibility against Nov 7.
 - End checkpoint: 2026-10-27 10:55 IST (time source checked); focused minutes not recorded.
 
-
 ## 2026-10-27 — Audit correction: schedule status and documentation closeout
 - Correction to the earlier closeout wording: calling the roadmap **at risk** was not justified by the available evidence. We had a provisional remaining-effort estimate but had not compared it with confirmed available study hours/sessions through 2026-11-07. Correct classification is **insufficient evidence to determine ahead/on-track/at-risk/delayed**. Do not interpret missing availability as proof of risk or proof of safety.
-- Today's committed technical evidence remains: index/EXPLAIN exercise and PL/pgSQL count function with NULL rejection, supported by learner screenshots. Start was approximately 10:27 IST; close checkpoint 10:55 IST. About 28 minutes elapsed; focused minutes not recorded. The unused part of the 40-minute block is not credited as schedule savings because focus and comparable full-scope timing were not confirmed.
+- Today's technical milestone remains: index/EXPLAIN exercise and PL/pgSQL count function with NULL rejection, supported by learner screenshots. Start was approximately 10:27 IST; close checkpoint 10:55 IST. About 28 minutes elapsed; focused minutes not recorded. The unused part of the 40-minute block is not credited as schedule savings because focus and comparable full-scope timing were not confirmed.
 - Remaining effort estimate 6.5–9.5 focused hours base plus 15–20% contingency (about 7.5–11.4 hours total) is provisional, not validated against repository workflow/tests. Next coach action is to inspect current project/tests/workflows and confirm actual available study slots through Nov 7, then calculate feasibility and any required scope cut.
 - Process failure acknowledged: the previous closeout said the overall roadmap had been updated when its update was blocked. The session log and PostgreSQL roadmap were committed; the overall roadmap file was not updated at that point. The Study Coach agent instructions were strengthened on 2026-10-27 to require verified writes, safe retries, explicit capacity-vs-effort math, strict status definitions, daily scorecard, and an audit correction when closeout fails. The overall roadmap checkpoint was subsequently added and verified on the same branch.
 - Do not count cumulative savings/losses for today. Historical focused minutes are not consistently recorded; cumulative actual remains unknown.
-
 
 ## 2026-10-27 — Availability and interview-scope planning follow-up
 - Learner confirmed recurring availability: laptop Monday/Tuesday 60 minutes each; mobile Wednesday-Friday 30 minutes each; weekends 2 hours.
@@ -154,7 +151,7 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Learner asked for a full end-to-end roadmap review and scenario simulation through the Nov 7 target, including setup/runtime blockers, ahead/behind days, and buffer usage.
 - Reviewed docs/PROJECT_CONTEXT.md, docs/STUDY_ROADMAP.md, docs/POSTGRESQL_ROADMAP.md, this session log, Study Coach/Developer/Review agent instructions, docker-compose.yml, both .NET project files, Functions startup/queue code, and the recursive repository tree on AzureFunctionsBegin.
 - Verified new implementation facts: no .github/workflows/ directory and no dedicated test project exist in the tree; MyProjFolder/MyProjFolder.csproj does not reference Npgsql. Existing Program.cs conditionally configures OpenTelemetry/Azure Monitor export only when APPLICATIONINSIGHTS_CONNECTION_STRING is set. Remote file review only; no independent build/test was run.
-- Capacity simulation: 11 planned hours remain through Nov 7 if every saved slot is used. Reserving 15–20% (1.65–2.2h) for issues leaves about 8.8–9.35h planned-work capacity. The prior remaining estimate including contingency was 8.1–11.4h; its upper end exceeds this by about 2.05–2.6h. Status: at risk at the upper end / borderline, not confirmed delayed. Actual attendance and focused minutes remain unknown.
+- Capacity simulation: 11 planned hours remain through Nov 7 if every saved slot is used. Reserving 15–20% (1.65–2.2h) leaves about 8.8–9.35h planned-work capacity. The prior remaining estimate including contingency was 8.1–11.4h; its upper end exceeds this by about 2.05–2.6h. Status: at risk at the upper end / borderline, not confirmed delayed. Actual attendance and focused minutes remain unknown.
 - Added scenarios and a priority/cut line to the roadmap: must preserve Npgsql integration and meaningful GitHub Actions/PostgreSQL validation; cut optional PostgreSQL feature breadth, extra poison-message behavior and deep Azure theory first if setup/debugging consumes buffer. No Azure trial, card, billing or cloud-resource provisioning; actual Azure deployment remains excluded.
 - Planned sequence: Oct 28 mobile workflow anatomy; Oct 29–30 mobile CI/Npgsql retrieval practice; Oct 31–Nov 1 first laptop-capable implementation block; Nov 2–3 workflow implementation/debugging; Nov 4–6 mobile interview rehearsal; Nov 7 integrated verification and walkthrough. Re-estimate after first laptop-side build/Npgsql attempt and first workflow run.
 - Documentation updates: docs/PROJECT_CONTEXT.md and docs/STUDY_ROADMAP.md were committed on AzureFunctionsBegin and refetched to verify content. main was not touched. No code or workflow was created in this audit.
@@ -163,3 +160,12 @@ Learner requested timestamps and accurate minute accounting, smart but non-assum
 - Correction: the preceding simulation treated the weekend allowance as 2 hours on each Saturday and Sunday, producing an 11-hour total. The learner's wording 'weekends: 2 hours' is more naturally interpreted as 2 hours total per weekend. Use 9 hours provisionally through Nov 7: 5 hours weekday slots plus 2 hours for Oct 31–Nov 1 and 2 hours for Nov 7 weekend time. If the learner intended 2 hours per weekend day, revise only after confirming; do not assume the larger capacity.
 - With a 15–20% reserve, 9 planned hours leave 7.2–7.65 hours for planned work. Against the 8.1–11.4-hour remaining estimate including contingency, the shortfall is about 0.45–4.2 hours. Deadline is at risk without a scope cut or additional explicitly available time; this is a forecast, not proof of delay.
 - Roadmap and project context were corrected on AzureFunctionsBegin. All updates must be refetched and verified. main remains untouched.
+
+## 2026-10-28 — CI/CD mobile retrieval practice
+- Session goal: understand GitHub Actions workflow anatomy and explain why CI needs database integration tests, rather than treating successful compilation as proof of runtime correctness.
+- Topics covered: CI vs CD; workflow, trigger, job, runner, step, and service container; branch-filtered `push` trigger; typical restore/build/test sequence; configuration via environment variables and protecting sensitive credentials with GitHub Secrets.
+- Retrieval evidence: learner correctly identified that a workflow with only restore/build/test and no database-executing test would not necessarily detect a SQL query referencing a nonexistent PostgreSQL column. Learner also explained that successful compilation does not prove runtime correctness and that PostgreSQL scripts/queries used by .NET need validation. Coach refined the key distinction: the PostgreSQL service container supplies the database; an integration test must prepare the schema and execute the relevant query to catch that failure.
+- The YAML snippets shown were illustrative only. No workflow or code was edited, and no build/test/CI run was performed during this mobile session. Repository audit from Oct 27 still showed no `.github/workflows/` directory or dedicated test project; Npgsql integration remains pending.
+- Next session (Oct 29, mobile, planned 30 minutes): retrieve CI triggers/jobs/services/secrets and rehearse how to test database-dependent code without exposing production credentials. Next laptop block remains the first opportunity for actual Npgsql implementation and build/test evidence.
+- Time integrity: session start context was approximately 2026-10-28 10:09 IST. Exact end time, uninterrupted focus, and actual focused minutes were not confirmed; record focused duration as **not recorded** and do not credit assumed buffer savings.
+- Schedule: technical learning target for today's mobile session completed based on the learner's answers. Overall deadline status remains **at risk at the upper end of the estimate**, with 9 planned hours through Nov 7 if all slots are used and only about 7.2–7.65 hours after preserving 15–20% contingency. No new capacity was confirmed, and today's focused minutes are unknown. Reassess after the first laptop-side Npgsql/build attempt; protect Npgsql integration and meaningful CI/PostgreSQL validation, cut optional breadth first.
