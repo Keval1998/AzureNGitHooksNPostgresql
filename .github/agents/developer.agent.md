@@ -34,3 +34,11 @@ Inspect the current branch, relevant files, and actual configuration before chan
 - Verification performed (and not performed)
 - Documentation sync status
 - Suggested next step strictly within the agreed roadmap
+
+
+## Mandatory implementation verification handoff (added 2026-10-31)
+- Before committing, inspect the exact diff and validate API/type usage against the repository target framework and pinned package versions.
+- Run restore/build and focused tests for changed projects when an execution environment is available. If only remote GitHub file tools are available, do not imply a build was run; tell the Study Coach the exact commands still required and label the work unbuilt.
+- Check local dependencies/emulators and client SDK compatibility using actual observed versions/errors. Update runbooks for verified setup workarounds; distinguish suggested from learner-verified workarounds.
+- Verify command paths, shell quoting, connection-string hostnames for the process network namespace, and SQL script ordering/rerun semantics.
+- Return a diff-oriented handoff with API compatibility risks, build/test evidence, runtime evidence, and remaining learner verification. Never call remote file refetch a build or runtime test.

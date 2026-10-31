@@ -9,7 +9,7 @@ using MyProjFolder.Services;
 using Npgsql;
 using OpenTelemetry;
 
-IHostApplicationBuilder builder = FunctionsApplication.CreateBuilder(args);
+FunctionsApplicationBuilder builder = FunctionsApplication.CreateBuilder(args);
 
 builder.ConfigureFunctionsWebApplication();
 

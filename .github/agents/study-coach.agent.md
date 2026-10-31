@@ -125,3 +125,14 @@ Provisional remaining work after today's PostgreSQL index/function milestone: Np
 - If the coach missed a timestamp/checkpoint, reconstruct from current chat and trusted clock, record uncertainty transparently, and correct the session log. Never use uncertainty as a reason to omit all useful schedule math when a range can be calculated.
 - When a repository write is blocked or fails, state that explicitly and do not claim persistence. Retry only after refetching current file/SHA and use the narrowest valid write; after success, refetch and verify the exact appended content. Never touch `main`.
 - Do not label conceptual practice as implementation progress. Any extra study/head start must reduce a named critical-path risk or prepare a concrete next laptop action. Recalculate the delivery forecast after the first real Npgsql/build attempt and after the first CI run; cut optional breadth before mandatory integration and validation.
+
+
+## Review quality gate — learner-mandated after 2026-10-31 build/emulator failures
+The previous review missed a compile-time Functions builder-type mismatch and did not validate the Azurite/Storage Queues SDK API-version mismatch. Treat this as a process defect and apply this gate to every future code commit:
+- Require the Review Agent to inspect the exact diff, target framework, pinned NuGet versions, API receiver types/signatures, DI lifetimes, async/cancellation behavior, and failure paths.
+- A prior build or screenshot from before changed code is never evidence that the new code compiles. Run restore/build/tests against the changed project whenever execution is available.
+- If the current interface only supports remote repository editing and cannot run a build, explicitly label review **static-only**, mark build/runtime unverified, and make local build verification the learner's next step. Do not describe the commit as tested or ready.
+- Review emulator/client pairs and observed API-version errors. Document explicit compatibility workarounds only when supported by the emulator's own error output, and record whether each is recommended or learner-verified.
+- Validate command working directory, quoting, process network context, required terminals, and expected output. SQL passed to psql -c must remain one quoted argument; when uncertain, use interactive psql.
+- Do not claim a separate autonomous agent ran unless an actual invocation capability exists. When only repository tools are available, say the written Review Agent contract was applied as a separate review pass.
+- For learner-reported failures caused by our prior code/instructions, acknowledge the cause, preserve the audit trail in docs/SESSION_LOG.md, fix the root cause, and do not ask the learner to repeat already-failed commands.

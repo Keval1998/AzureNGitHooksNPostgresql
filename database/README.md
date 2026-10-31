@@ -65,3 +65,30 @@ and disposes a pooled connection per operation, and invokes the procedure
 using a parameterized `CALL`. The queue function awaits the operation and
 passes its cancellation token. Database exceptions are not swallowed, so the
 Functions queue trigger can apply its configured failure/retry behavior.
+
+
+## Local Azurite startup and queue sender compatibility
+
+Start Azurite in its own terminal from any directory:
+
+```bash
+azurite --skipApiVersionCheck --location /tmp/azurite --debug /tmp/azurite/debug.log
+```
+
+The `--skipApiVersionCheck` option is a local-emulator compatibility workaround for the observed Storage Queues SDK request API version `2026-10-06` being rejected by Azurite `3.37.0`. It skips the emulator's API-version check; it does not change production Azure Storage behavior or prove cloud compatibility. Keep the Azurite terminal running. If a later Azurite version supports the SDK API version natively, remove the workaround and verify the queue flow again.
+
+To inspect a report row without fragile shell quoting, open an interactive psql session:
+
+```bash
+docker compose exec postgres psql -U studyuser -d studydb
+```
+
+Then run this SQL at the `studydb=#` prompt:
+
+```sql
+SELECT id, report_name, status, created_at
+FROM report_requests
+WHERE report_name = 'rpt-test-001';
+```
+
+Exit with `\\q`. Do not paste the SQL statement as several unquoted shell arguments to `psql -c`.
