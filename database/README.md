@@ -1,49 +1,62 @@
-# PostgreSQL migrations
+# PostgreSQL database scripts
 
-All database SQL is kept in the ordered `migrations/` directory. The .NET
-application does not contain SQL statements; it calls PostgreSQL stored
-procedures through Npgsql.
+Database files are separated by responsibility:
 
-## Migration order
+- `migrations/`: one-time schema changes only (CREATE/ALTER/INDEX/constraints).
+- `seeds/`: one-time sample-data inserts for a fresh database.
+- `stored-procedures/`: procedure definitions, separate from schema changes.
+  These use `CREATE OR REPLACE PROCEDURE` and can be applied again safely.
 
-1. `001_create_reporting_schema.sql` — creates `departments`,
-   `report_requests`, keys, defaults, and the composite index.
-2. `002_seed_current_reporting_data.sql` — inserts the three departments
-   and five report rows captured from the learner's database on 2026-10-31.
-3. `003_add_report_processing_procedure.sql` — adds a unique constraint on
-   `report_requests.report_name` and the `process_report_request` procedure.
+## Existing local studydb (your current database)
 
-Apply migrations in numeric order to a **fresh, empty database**:
+Your database already contains the baseline tables and sample rows. Do not run
+migration 001 or the seed script again.
+
+Run these two files, in this order, from the repository root:
+
+```bash
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/002_add_report_name_unique_constraint.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/stored-procedures/process_report_request.sql
+```
+
+Run migration 002 exactly once. It adds a unique constraint and will fail if
+the constraint already exists or if duplicate report names are present.
+The stored-procedure file can be run repeatedly: `CREATE OR REPLACE` replaces
+the procedure definition.
+
+## Fresh empty database
+
+Apply in this order:
 
 ```bash
 docker compose up -d postgres
 docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/001_create_reporting_schema.sql
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/002_seed_current_reporting_data.sql
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/003_add_report_processing_procedure.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/seeds/001_seed_current_reporting_data.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/002_add_report_name_unique_constraint.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/stored-procedures/process_report_request.sql
 ```
 
-The existing learner database already has the schema and sample rows from
-migrations 001 and 002. **Do not run migration 001 against that populated
-database.** For the existing database, run only migration 003 to add the
-procedure and its unique business-key constraint:
+The seed file is deliberately a one-time insert script. It has no
+`ON CONFLICT` clause and must not be rerun: doing so should fail on duplicate
+primary keys rather than silently overwrite sample data. If it fails partway,
+the surrounding transaction rolls back all seed inserts.
 
-```bash
-docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/003_add_report_processing_procedure.sql
-```
+## What each SQL file does
 
-If the seed snapshot needs to be restored, migration 002 is an upsert by id
-and can be rerun before migration 003. Do not rerun migration 003 after it has
-already succeeded: it adds a named unique constraint and is a one-time schema
-migration. A migration runner/history table is not introduced in this learning
-slice; apply each numbered migration once and record the applied version.
+| File | Purpose | Safe to rerun? |
+|---|---|---|
+| `migrations/001_create_reporting_schema.sql` | Baseline tables and index | No |
+| `seeds/001_seed_current_reporting_data.sql` | Initial sample records | No |
+| `migrations/002_add_report_name_unique_constraint.sql` | Add unique constraint | No |
+| `stored-procedures/process_report_request.sql` | Create/replace procedure | Yes |
 
 ## Procedure contract
 
 `process_report_request(p_report_id varchar(100))` inserts a report request
-with status `processing`. A unique constraint on `report_name` makes repeat
-queue deliveries harmless: an existing row is left unchanged. The current
+with status `processing`. The unique constraint on `report_name` makes
+repeat queue deliveries harmless: an existing row is left unchanged. The
 queue model's `ReportId` is stored in `report_requests.report_name` because
-the inspected table has no separate report_id column.
+the inspected table has no separate `report_id` column.
 
 ## .NET integration
 

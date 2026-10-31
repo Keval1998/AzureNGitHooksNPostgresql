@@ -1,6 +1,6 @@
--- Reproducible snapshot of the learner's current local reporting data
--- (captured from psql on 2026-10-31). Safe to re-run: rows are upserted by id.
--- Explicit identity values require OVERRIDING SYSTEM VALUE.
+-- One-time sample data for a fresh database after migration 001.
+-- Do not run more than once: these INSERT statements intentionally have no
+-- ON CONFLICT clause. Explicit identity values require OVERRIDING SYSTEM VALUE.
 BEGIN;
 
 INSERT INTO departments (id, name)
@@ -8,9 +8,7 @@ OVERRIDING SYSTEM VALUE
 VALUES
     (1, 'Sales'),
     (2, 'Inventory'),
-    (3, 'Finance')
-ON CONFLICT (id) DO UPDATE
-SET name = EXCLUDED.name;
+    (3, 'Finance');
 
 INSERT INTO report_requests
     (id, report_name, status, created_at, department_id)
@@ -25,12 +23,7 @@ VALUES
     (4, 'Revenue Report', 'processing',
         TIMESTAMPTZ '2026-10-26 05:03:20.535095+00', 3),
     (5, 'Audit Report', 'pending',
-        TIMESTAMPTZ '2026-10-26 05:03:20.535095+00', 3)
-ON CONFLICT (id) DO UPDATE
-SET report_name = EXCLUDED.report_name,
-    status = EXCLUDED.status,
-    created_at = EXCLUDED.created_at,
-    department_id = EXCLUDED.department_id;
+        TIMESTAMPTZ '2026-10-26 05:03:20.535095+00', 3);
 
 -- Keep identity generators ahead of the explicitly inserted snapshot ids.
 SELECT setval(

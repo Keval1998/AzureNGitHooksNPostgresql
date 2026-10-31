@@ -30,13 +30,13 @@ Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angula
 - `MyProjFolder/ProcessReport.cs` deserializes and validates queue JSON, then awaits `ReportProcessingService`.
 - `MyProjFolder/Services/ReportProcessingService.cs` calls PostgreSQL procedure `process_report_request` through a parameterized Npgsql command. `NpgsqlDataSource` and the stateless service are registered as singletons.
 - `docker-compose.yml`: local PostgreSQL 16 service, database `studydb`, user `studyuser`, named volume `postgres_data`, health check.
-- `database/migrations/`: ordered SQL migrations for the reporting schema, reproducible sample data, and stored procedures. The baseline migration is for a fresh/empty database; do not apply it to the learner's already-populated local database.
+- `database/migrations/`: one-time, ordered schema DDL changes only. `database/seeds/`: one-time sample-data inserts. `database/stored-procedures/`: rerunnable `CREATE OR REPLACE PROCEDURE` definitions, separate from schema migrations.
 - `docs/POSTGRESQL_ROADMAP.md`: practical learning roadmap and completion criteria.
 
 ## Verified and unverified checkpoints
 - Local Azurite queue flow was verified by the learner's screenshot: `ProcessReport` logged `rpt-test-001` and completed Succeeded in 221 ms. This verifies local happy-path runtime only. Independent build and Azure deployment were not verified.
 - PostgreSQL container health and successful psql connection were confirmed in the learner's 2026-10-25 screenshot. `SELECT current_database();` returned `studydb`. A first attempt used the misspelling `currrent_database()` and failed as expected.
-- On 2026-10-31, learner screenshots confirmed the current `studydb` schema: `departments` and `report_requests` both have identity integer primary keys; `departments.name` is unique and non-null; `report_requests` has non-null `report_name varchar(100)`, nullable `status varchar(20)` defaulting to `pending`, non-null `created_at timestamptz` defaulting to `CURRENT_TIMESTAMP`, nullable `department_id` FK to `departments.id`, and B-tree index `(status, created_at DESC)`. Three departments and five report rows were visible. Ordered migrations and sample data are stored under `database/migrations/`.
+- On 2026-10-31, learner screenshots confirmed the current `studydb` schema: `departments` and `report_requests` both have identity integer primary keys; `departments.name` is unique and non-null; `report_requests` has non-null `report_name varchar(100)`, nullable `status varchar(20)` defaulting to `pending`, non-null `created_at timestamptz` defaulting to `CURRENT_TIMESTAMP`, nullable `department_id` FK to `departments.id`, and B-tree index `(status, created_at DESC)`. Three departments and five report rows were visible. Schema migrations, one-time seeds, and rerunnable stored-procedure definitions are kept in separate `database/migrations/`, `database/seeds/`, and `database/stored-procedures/` folders.
 - Azurite 3.37.0 previously rejected Storage Queues SDK 12.28.1 API version; `--skipApiVersionCheck` was used as a local workaround. Verify actual versions/errors before reusing it.
 - Local settings should remain untracked.
 
@@ -45,7 +45,7 @@ The overall roadmap is maintained in `docs/STUDY_ROADMAP.md`. Azure is a continu
 
 Current detailed PostgreSQL milestones are in `docs/POSTGRESQL_ROADMAP.md`. Keep sender and worker models separate for now; queue boundary is JSON. Queue retry/poison-message behavior is optional later, not a reason to prolong the queue milestone.
 
-- Repository inspection on 2026-10-31 confirmed Npgsql 10.0.3 is referenced by `MyProjFolder`. The initial data-source registration compiled successfully according to the learner's screenshot. The stored-procedure integration added on 2026-10-31 is remote-file verified only; learner build/runtime validation is still pending. No `.github/workflows/` directory or dedicated test project was present in the earlier 2026-10-27 tree audit; CI/CD remains outstanding.
+- Repository inspection on 2026-10-31 confirmed Npgsql 10.0.3 is referenced by `MyProjFolder`. The initial data-source registration compiled successfully according to the learner's screenshot. The stored-procedure integration is remote-file verified only; learner build/runtime validation is still pending. No `.github/workflows/` directory or dedicated test project was present in the earlier 2026-10-27 tree audit; CI/CD remains outstanding.
 
 ## Timeline
 The latest recorded target is **2026-11-07** for the accelerated roadmap: PostgreSQL + CI/CD focus through Nov 1, then integration/interview-readiness work Nov 2–7. On each session, compare verified progress against this target; if the plan is slipping, state the trade-off and propose a scoped adjustment rather than silently changing the date.

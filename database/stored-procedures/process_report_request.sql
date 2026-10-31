@@ -1,10 +1,5 @@
--- Add a stable business key and the queue-processing stored procedure.
--- The current sample data has distinct report_name values.
-BEGIN;
-
-ALTER TABLE report_requests
-    ADD CONSTRAINT uq_report_requests_report_name UNIQUE (report_name);
-
+-- Stored procedure definition is intentionally re-runnable.
+-- CREATE OR REPLACE updates the procedure body without changing the table schema.
 CREATE OR REPLACE PROCEDURE process_report_request(
     IN p_report_id character varying(100)
 )
@@ -16,5 +11,3 @@ BEGIN
     ON CONFLICT (report_name) DO NOTHING;
 END;
 $procedure$;
-
-COMMIT;
