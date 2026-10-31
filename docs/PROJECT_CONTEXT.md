@@ -29,6 +29,7 @@ Practical learning for PostgreSQL, CI/CD, and Azure, building on C#/.NET, Angula
 - `QueueSender/Program.cs` serializes `ReportRequest` using `System.Text.Json` web defaults before sending to `report-requests`.
 - `MyProjFolder/ProcessReport.cs` deserializes JSON with matching web defaults, validates nonblank `ReportId`, and logs the ID.
 - `docker-compose.yml`: local PostgreSQL 16 service, database `studydb`, user `studyuser`, named volume `postgres_data`, health check.
+- `database/README.md`, `database/migrations/001_create_reporting_schema.sql`, and `database/seeds/001_seed_current_reporting_data.sql`: reproducible baseline schema and snapshot seed for the reporting database. The baseline migration is for a fresh/empty database; do not apply it to the learner's already-populated local database. Future schema changes get new ordered migration files.
 - `docs/POSTGRESQL_ROADMAP.md`: practical learning roadmap and completion criteria.
 
 ## Verified and unverified checkpoints
