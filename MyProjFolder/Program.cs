@@ -5,10 +5,11 @@ using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyProjFolder.Services;
 using Npgsql;
 using OpenTelemetry;
 
-var builder = FunctionsApplication.CreateBuilder(args);
+IHostApplicationBuilder builder = FunctionsApplication.CreateBuilder(args);
 
 builder.ConfigureFunctionsWebApplication();
 
@@ -19,13 +20,13 @@ if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPLICATIONINSIGHT
         .UseAzureMonitorExporter();
 }
 
-var reportingConnectionString =
+string reportingConnectionString =
     builder.Configuration.GetConnectionString("ReportingDb")
     ?? throw new InvalidOperationException(
         "Connection string 'ReportingDb' is not configured.");
 
-builder.Services.AddSingleton(
-    NpgsqlDataSource.Create(reportingConnectionString));
-
+builder.Services.AddSingleton<NpgsqlDataSource>(
+    serviceProvider => NpgsqlDataSource.Create(reportingConnectionString));
+builder.Services.AddSingleton<ReportProcessingService>();
 
 builder.Build().Run();

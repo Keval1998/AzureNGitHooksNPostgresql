@@ -2,27 +2,36 @@ using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using MyProjFolder.Models;
+using MyProjFolder.Services;
 
 namespace MyProjFolder;
 
 public class ProcessReport
 {
     private readonly ILogger<ProcessReport> _logger;
+    private readonly ReportProcessingService _reportProcessingService;
 
-    public ProcessReport(ILogger<ProcessReport> logger)
+    public ProcessReport(
+        ILogger<ProcessReport> logger,
+        ReportProcessingService reportProcessingService)
     {
         _logger = logger;
+        _reportProcessingService = reportProcessingService;
     }
 
     [Function("ProcessReport")]
-    public void Run(
+    public async Task Run(
         [QueueTrigger(
             "report-requests",
             Connection = "AzureWebJobsStorage")]
-        string message)
+        string message,
+        CancellationToken cancellationToken)
     {
-        var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-        var request = JsonSerializer.Deserialize<ReportRequest>(message, jsonOptions);
+        JsonSerializerOptions jsonOptions =
+            new JsonSerializerOptions(JsonSerializerDefaults.Web);
+
+        ReportRequest? request =
+            JsonSerializer.Deserialize<ReportRequest>(message, jsonOptions);
 
         if (request is null || string.IsNullOrWhiteSpace(request.ReportId))
         {
@@ -30,8 +39,12 @@ public class ProcessReport
                 "Queue message must contain a non-empty reportId.");
         }
 
+        await _reportProcessingService.RegisterReportRequestAsync(
+            request.ReportId,
+            cancellationToken);
+
         _logger.LogInformation(
-            "Processing report request for ReportId: {ReportId}",
+            "Registered report request for ReportId: {ReportId}",
             request.ReportId);
     }
 }

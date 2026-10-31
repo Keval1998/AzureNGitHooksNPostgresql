@@ -1,60 +1,54 @@
-# PostgreSQL database scripts
+# PostgreSQL migrations
 
-These scripts document and reproduce the reporting schema used by the local
-.NET / PostgreSQL study project.
+All database SQL is kept in the ordered `migrations/` directory. The .NET
+application does not contain SQL statements; it calls PostgreSQL stored
+procedures through Npgsql.
 
-## Layout
+## Migration order
 
-- `migrations/001_create_reporting_schema.sql`: creates `departments`,
-  `report_requests`, their keys, defaults, and the composite index.
-- `seeds/001_seed_current_reporting_data.sql`: inserts the three departments
-  and five report requests visible in the learner's local database snapshot
-  captured on 2026-10-31.
+1. `001_create_reporting_schema.sql` — creates `departments`,
+   `report_requests`, keys, defaults, and the composite index.
+2. `002_seed_current_reporting_data.sql` — inserts the three departments
+   and five report rows captured from the learner's database on 2026-10-31.
+3. `003_add_report_processing_procedure.sql` — adds a unique constraint on
+   `report_requests.report_name` and the `process_report_request` procedure.
 
-## Apply to a fresh database
-
-Start the PostgreSQL Compose service, then run these commands from the
-repository root in the Codespaces terminal:
+Apply migrations in numeric order to a **fresh, empty database**:
 
 ```bash
 docker compose up -d postgres
-docker compose exec -T postgres psql -U studyuser -d studydb < database/migrations/001_create_reporting_schema.sql
-docker compose exec -T postgres psql -U studyuser -d studydb < database/seeds/001_seed_current_reporting_data.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/001_create_reporting_schema.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/002_seed_current_reporting_data.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/003_add_report_processing_procedure.sql
 ```
 
-The migration is a one-time baseline for an **empty database**. It intentionally
-does not use `IF NOT EXISTS`: silently accepting a pre-existing but different
-schema could hide drift. Do not apply it to the learner's current database,
-because that database already has these tables.
-
-The seed script is safe to re-run for this snapshot: it upserts by primary-key
-id and resets both identity sequences to the current maximum ids. It updates
-the seeded rows to match this snapshot; it does not delete unrelated rows.
-
-## Existing local database
-
-The learner's existing `studydb` was inspected on 2026-10-31. Its schema and
-records match the scripts above. To restore/update just the known sample rows
-in that existing database, run only the seed script:
+The existing learner database already has the schema and sample rows from
+migrations 001 and 002. **Do not run migration 001 against that populated
+database.** For the existing database, run only migration 003 to add the
+procedure and its unique business-key constraint:
 
 ```bash
-docker compose exec -T postgres psql -U studyuser -d studydb < database/seeds/001_seed_current_reporting_data.sql
+docker compose exec -T postgres psql -v ON_ERROR_STOP=1 -U studyuser -d studydb < database/migrations/003_add_report_processing_procedure.sql
 ```
 
-## Current schema notes
+If the seed snapshot needs to be restored, migration 002 is an upsert by id
+and can be rerun before migration 003. Do not rerun migration 003 after it has
+already succeeded: it adds a named unique constraint and is a one-time schema
+migration. A migration runner/history table is not introduced in this learning
+slice; apply each numbered migration once and record the applied version.
 
-- `departments.id`: integer identity primary key.
-- `departments.name`: varchar(100), NOT NULL, UNIQUE.
-- `report_requests.id`: integer identity primary key.
-- `report_requests.report_name`: varchar(100), NOT NULL.
-- `report_requests.status`: varchar(20), nullable, default `pending`.
-- `report_requests.created_at`: timestamptz, NOT NULL, default
-  `CURRENT_TIMESTAMP`.
-- `report_requests.department_id`: nullable integer foreign key to
-  `departments.id`.
-- Index `idx_reports_status_created`: B-tree on
-  `(status, created_at DESC)`.
+## Procedure contract
 
-The SQL files are the reproducible source of truth for this captured baseline.
-Future schema changes should be added as new, ordered migration files; do not
-rewrite an already-applied migration.
+`process_report_request(p_report_id varchar(100))` inserts a report request
+with status `processing`. A unique constraint on `report_name` makes repeat
+queue deliveries harmless: an existing row is left unchanged. The current
+queue model's `ReportId` is stored in `report_requests.report_name` because
+the inspected table has no separate report_id column.
+
+## .NET integration
+
+`ReportProcessingService` receives the singleton `NpgsqlDataSource`, opens
+and disposes a pooled connection per operation, and invokes the procedure
+using a parameterized `CALL`. The queue function awaits the operation and
+passes its cancellation token. Database exceptions are not swallowed, so the
+Functions queue trigger can apply its configured failure/retry behavior.
