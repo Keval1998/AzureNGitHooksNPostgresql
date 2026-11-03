@@ -1,0 +1,59 @@
+name: .NET and PostgreSQL CI
+
+on:
+  push:
+    branches:
+      - AzureFunctionsBegin
+  pull_request:
+    branches:
+      - AzureFunctionsBegin
+
+jobs:
+  build-and-integration-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: studydb
+          POSTGRES_USER: studyuser
+          POSTGRES_PASSWORD: study-local-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U studyuser -d studydb"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGDATABASE: studydb
+      PGUSER: studyuser
+      PGPASSWORD: study-local-password
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Apply PostgreSQL schema
+        run: |
+          psql -v ON_ERROR_STOP=1 -f database/migrations/001_create_reporting_schema.sql
+          psql -v ON_ERROR_STOP=1 -f database/seeds/001_seed_current_reporting_data.sql
+          psql -v ON_ERROR_STOP=1 -f database/migrations/002_add_report_name_unique_constraint.sql
+          psql -v ON_ERROR_STOP=1 -f database/stored-procedures/process_report_request.sql
+
+      - name: Build QueueSender
+        run: dotnet build QueueSender/QueueSender.csproj --configuration Release
+
+      - name: Run PostgreSQL integration tests
+        env:
+          ConnectionStrings__ReportingDb: Host=localhost;Port=5432;Database=studydb;Username=studyuser;Password=study-local-password
+        run: dotnet test tests/ReportProcessing.IntegrationTests/ReportProcessing.IntegrationTests.csproj --configuration Release --logger "console;verbosity=normal"
