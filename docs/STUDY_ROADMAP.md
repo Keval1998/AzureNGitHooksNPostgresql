@@ -1,7 +1,7 @@
 # Study Roadmap — Azure, PostgreSQL, CI/CD
 
 ## Goal
-Build demonstrable skills for .NET backend/product-engineering roles by **2026-11-07**. The outcome is practical implementation and the ability to explain trade-offs—not simply completing tutorials.
+Build demonstrable skills for .NET backend/product-engineering roles by **2026-11-08**. The outcome is practical implementation and the ability to explain trade-offs—not simply completing tutorials.
 
 ## Constraints and working agreement
 - Environment: GitHub Codespaces; keep sessions small and hands-on.
@@ -40,7 +40,7 @@ Remaining outcomes:
 
 ## Timebox and checkpoints
 - Through 2026-11-01: PostgreSQL practicals as the main hands-on focus, while reserving short review sessions for the existing Azure Functions implementation. Avoid re-teaching familiar queue fundamentals.
-- 2026-11-02 to 2026-11-07: CI/CD integration, consolidate Azure/PostgreSQL evidence, interview explanations and final gap review.
+- 2026-11-02 to 2026-11-08: CI/CD integration, consolidate Azure/PostgreSQL evidence, interview explanations and final gap review.
 - This is an aggressive target. Compare verified outcomes with the target each session. If behind, prioritise a coherent demonstrable vertical slice and explain trade-offs rather than silently changing the date.
 
 ## Completion evidence
@@ -194,3 +194,9 @@ Recalculate estimates after the first laptop-side build/Npgsql attempt and after
 - Workflow successfully provisions PostgreSQL 16, applies SQL setup, builds QueueSender, builds the Functions project through the test project reference, and runs the integration test. Successful runs after cleanup commit `2ac7ef5` validate the cleanup-enabled test as part of CI.
 - Sunday catch-up integration-test deliverable is complete; Monday CI workflow deliverable is also complete and CI-verified. Do not require filling a full hour when planned scope is complete. Exact focused minutes were not measured.
 - Remaining high-value work: Azure Functions configuration and binding model, managed identity/RBAC concepts, telemetry/logging, deployment pipeline strategy without cloud provisioning, then integrated interview walkthrough. Reassess Nov 7 schedule using confirmed remaining availability.
+
+
+## Deadline adjustment — 2026-11-03
+The learner approved moving the target from 2026-11-07 to **2026-11-08**. This is a one-day calendar extension, not an automatic increase in study capacity. Existing availability is 30 minutes per mobile weekday (Wednesday-Friday) and 2 hours total across the weekend. For the remaining window, the provisional planned capacity is 90 minutes on Nov 4-6 plus 2 hours across Nov 7-8 = **3.5 hours**, assuming all slots are actually used. A further 45-minute laptop block was discussed as deferred capacity, but its date/time is not confirmed and must not be counted until confirmed.
+
+Priority for remaining work: (1) Azure Functions configuration/local-vs-app settings and bindings, (2) managed identity/RBAC and connection-string trade-offs, (3) existing logging/OpenTelemetry/Azure Monitor configuration, (4) deployment pipeline concepts and required cloud verification evidence, (5) integrated interview walkthrough. Keep implementation scope small; no Azure subscription, billing, cloud resources, or real cloud deployment. Deadline feasibility is **provisional / insufficient evidence** until the learner confirms use of the remaining 3.5-hour pattern and the extra 45-minute slot. Do not treat the date extension itself as new focused hours.
