@@ -78,3 +78,7 @@ Learner screenshot confirms the first xUnit integration test passed in Codespace
 
 ## GitHub Actions PostgreSQL CI (2026-11-03)
 Added `.github/workflows/dotnet-postgres-ci.yml` on `AzureFunctionsBegin`. It runs on pushes and pull requests targeting that branch, starts PostgreSQL 16 as a health-checked service, installs `postgresql-client`, applies the fresh-database schema/seed/unique-constraint/procedure scripts in order, builds `QueueSender`, and runs `tests/ReportProcessing.IntegrationTests` with `ConnectionStrings__ReportingDb`. Workflow content has been refetched and statically reviewed; no Actions run result is yet available/verified. The learner accepted the test cleanup change without a second local run, so that particular follow-up remains unverified locally.
+
+
+## CI verification result (2026-11-03)
+Learner screenshot confirms five successful GitHub Actions runs on `AzureFunctionsBegin`, including the latest workflow run for commit `809376f`. The runs completed in approximately 54–67 seconds. The workflow therefore has observed CI success for PostgreSQL 16 service provisioning/health, SQL initialization, QueueSender build, and the PostgreSQL-backed xUnit integration test. Successful runs after test-cleanup commit `2ac7ef5` also execute the cleanup-enabled test source. Local integration test was separately observed passing 1/1 before cleanup was added. Distinguish this from Azure deployment, which remains intentionally out of scope.
