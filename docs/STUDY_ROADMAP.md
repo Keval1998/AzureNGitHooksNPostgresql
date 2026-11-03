@@ -181,3 +181,9 @@ Next session (Wed Oct 28, mobile, 30 minutes): learn/retrieve GitHub Actions wor
 
 ### Review rule
 Recalculate estimates after the first laptop-side build/Npgsql attempt and after the first workflow run. Only label ahead/on-track if observed progress and confirmed capacity support it. Early completion of familiar work is potential buffer until scope and focus are confirmed; new-concept or setup overruns consume buffer.
+
+## CI/CD implementation checkpoint — 2026-11-03
+- Local PostgreSQL integration test: learner screenshot confirms 1/1 test passed against local PostgreSQL; both Functions and test projects built successfully.
+- GitHub Actions workflow added at `.github/workflows/dotnet-postgres-ci.yml`: PostgreSQL 16 service + health check, SQL bootstrap, QueueSender build, and integration-test run on push/PR for `AzureFunctionsBegin`.
+- Remaining verification: observe the actual Actions run and fix failures; rerun local integration test after the newly added cleanup code if practical; then concise Azure Functions configuration/identity/telemetry review and end-to-end interview walkthrough.
+- Workflow is source-committed but not yet CI-verified. Do not mark CI milestone complete until a passing Actions run is observed.
