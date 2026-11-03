@@ -66,3 +66,7 @@ Confirmed recurring availability: laptop Monday/Tuesday 60 minutes each; mobile 
 - Azurite 3.37.0 rejected Storage Queues SDK request API version `2026-10-06` with HTTP 400. Documented Azurite's own suggested `--skipApiVersionCheck` workaround. Successful use is not yet evidenced.
 - The prior review was inadequate because it did not require a build of changed code or inspect emulator/client API-version compatibility. Agent instructions now require exact-diff/API checks, changed-project build/tests where executable, emulator compatibility, command quoting/path checks, and explicit static-only status when build execution is unavailable.
 - This session's connected GitHub tools can edit/fetch repository files but cannot run the Codespaces build, Azurite, or Functions. Build/runtime verification remains outstanding and is the learner's next step.
+
+
+## Npgsql integration test scaffold (2026-11-03)
+A .NET 10 xUnit project exists at `tests/ReportProcessing.IntegrationTests`. It references `MyProjFolder/MyProjFolder.csproj` and contains an async test that exercises the real `ReportProcessingService` against PostgreSQL using the `ConnectionStrings__ReportingDb` environment variable. It inserts a unique report request through `process_report_request`, then independently verifies `status = 'processing'` in `report_requests`. The test scaffold and project reference are committed on `AzureFunctionsBegin`; remote files were refetched. Build/test/runtime are not yet verified. Each run currently leaves its uniquely named integration-test row in the local database.
