@@ -43,6 +43,11 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+
       - name: Apply PostgreSQL schema
         run: |
           psql -v ON_ERROR_STOP=1 -f database/migrations/001_create_reporting_schema.sql
@@ -55,5 +60,5 @@ jobs:
 
       - name: Run PostgreSQL integration tests
         env:
-          ConnectionStrings__ReportingDb: Host=localhost;Port=5432;Database=studydb;Username=studyuser;Password=study-local-password
+          ConnectionStrings__ReportingDb: "Host=localhost;Port=5432;Database=studydb;Username=studyuser;Password=study-local-password"
         run: dotnet test tests/ReportProcessing.IntegrationTests/ReportProcessing.IntegrationTests.csproj --configuration Release --logger "console;verbosity=normal"
