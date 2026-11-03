@@ -74,3 +74,7 @@ A .NET 10 xUnit project exists at `tests/ReportProcessing.IntegrationTests`. It 
 
 ## Npgsql integration verification (2026-11-03)
 Learner screenshot confirms the first xUnit integration test passed in Codespaces against the local PostgreSQL database: Functions project and test project built, 1 test discovered/executed, 1 passed, 0 failed/skipped. The test calls the real `ReportProcessingService`, which invokes `process_report_request`, then independently queries the inserted row and checks status `processing`. A subsequent code change adds cleanup in a `finally` block for the generated row; this cleanup change is committed but has not yet been rerun locally. CI workflow and PostgreSQL-backed GitHub Actions verification are still outstanding. This confirms local build/test only, not CI or Azure deployment.
+
+
+## GitHub Actions PostgreSQL CI (2026-11-03)
+Added `.github/workflows/dotnet-postgres-ci.yml` on `AzureFunctionsBegin`. It runs on pushes and pull requests targeting that branch, starts PostgreSQL 16 as a health-checked service, installs `postgresql-client`, applies the fresh-database schema/seed/unique-constraint/procedure scripts in order, builds `QueueSender`, and runs `tests/ReportProcessing.IntegrationTests` with `ConnectionStrings__ReportingDb`. Workflow content has been refetched and statically reviewed; no Actions run result is yet available/verified. The learner accepted the test cleanup change without a second local run, so that particular follow-up remains unverified locally.
