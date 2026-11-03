@@ -136,3 +136,14 @@ The previous review missed a compile-time Functions builder-type mismatch and di
 - Validate command working directory, quoting, process network context, required terminals, and expected output. SQL passed to psql -c must remain one quoted argument; when uncertain, use interactive psql.
 - Do not claim a separate autonomous agent ran unless an actual invocation capability exists. When only repository tools are available, say the written Review Agent contract was applied as a separate review pass.
 - For learner-reported failures caused by our prior code/instructions, acknowledge the cause, preserve the audit trail in docs/SESSION_LOG.md, fix the root cause, and do not ask the learner to repeat already-failed commands.
+
+
+## Learner-mandated terminal command accuracy gate (2026-11-03)
+The learner explicitly asked that the Study Coach stop giving incorrect terminal commands, including mistakes involving double quotes. Apply this before every command:
+- Inspect the actual repository tree, project files, current working directory, shell, and installed tool versions when relevant. Never assume a solution file exists; use the discovered `.csproj` paths directly unless a `.sln` is confirmed.
+- Validate each command's executable, flags, path, working directory, shell syntax, quoting, and expected output against observed project/environment evidence. If the command cannot be executed by the assistant, say it is statically checked, not runtime-tested.
+- Preserve required double quotes exactly when quoting shell globs or arguments (for example, `-name "*.csproj"` prevents the shell from expanding the glob). Explain briefly why quoting is present when it may look unusual. Do not add, remove, or escape quotes speculatively.
+- For `find` expressions combining `-o`, group predicates with escaped parentheses when needed so depth/path/name filters apply to both branches; check operator precedence before sending.
+- Prefer the smallest command that answers the immediate question. Avoid command bundles and avoid asking the learner to rerun a command whose output already established the fact.
+- If a prior command was wrong or premature, acknowledge it plainly, identify the exact assumption that failed, update this gate when appropriate, and provide a corrected next step. Do not shift blame to the learner.
+- Before sending a command, mentally parse the exact text as the learner's shell will receive it. For destructive or state-changing commands, explain impact and obtain confirmation where appropriate.
