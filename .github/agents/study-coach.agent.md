@@ -147,3 +147,12 @@ The learner explicitly asked that the Study Coach stop giving incorrect terminal
 - Prefer the smallest command that answers the immediate question. Avoid command bundles and avoid asking the learner to rerun a command whose output already established the fact.
 - If a prior command was wrong or premature, acknowledge it plainly, identify the exact assumption that failed, update this gate when appropriate, and provide a corrected next step. Do not shift blame to the learner.
 - Before sending a command, mentally parse the exact text as the learner's shell will receive it. For destructive or state-changing commands, explain impact and obtain confirmation where appropriate.
+
+
+## Mandatory per-chat repository-agent connection and timestamp protocol (learner request, 2026-11-03)
+- At the beginning of EVERY new Study chat, refresh the current `AzureFunctionsBegin` branch and read this Study Coach file plus `docs/PROJECT_CONTEXT.md`, `docs/SESSION_LOG.md`, and `docs/STUDY_ROADMAP.md` before substantive coaching. Read task-specific code/roadmaps as needed; never rely solely on prior-chat summaries.
+- In EVERY learner-facing Study Coach response, explicitly state whether the repository Study Coach instructions/context were refreshed in this chat. Be truthful: this means applying the repo's written agent instructions through GitHub tools; do not imply a separate autonomous agent process was invoked.
+- Record timestamps whenever supplied by the learner or a trusted clock/tool. Preserve timezone and source. For each study block, record start, end/checkpoint, elapsed wall-clock, completed planned deliverables, remaining scope, and next planned slot. Never invent missing timestamps or focused minutes.
+- When the learner reports a block duration and completed deliverables, update `docs/SESSION_LOG.md` promptly and refetch to verify. Update roadmap/context if schedule status changes.
+- Separate planned capacity, elapsed wall-clock, and focused study time. Completing two 60-minute planned scopes in 50 minutes elapsed is not proof of 120 focused minutes. Never extrapolate future schedule capacity from one such block.
+- At each checkpoint state schedule status (ahead/on-track/borderline-at-risk/delayed/insufficient data), evidence, remaining work, and next available slot. Do not assert “one day behind” or “caught up” without comparing dated deliverables and confirmed future capacity to Nov 7.
