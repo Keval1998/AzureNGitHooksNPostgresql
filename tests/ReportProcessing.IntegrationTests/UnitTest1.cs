@@ -18,27 +18,43 @@ public sealed class ReportProcessingServiceIntegrationTests
         await using NpgsqlDataSource dataSource =
             NpgsqlDataSource.Create(connectionString);
 
-        ReportProcessingService service = new(dataSource);
+        try
+        {
+            ReportProcessingService service = new(dataSource);
 
-        await service.RegisterReportRequestAsync(
-            reportId,
-            CancellationToken.None);
+            await service.RegisterReportRequestAsync(
+                reportId,
+                CancellationToken.None);
 
-        await using NpgsqlConnection verificationConnection =
-            await dataSource.OpenConnectionAsync();
+            await using NpgsqlConnection verificationConnection =
+                await dataSource.OpenConnectionAsync();
 
-        await using NpgsqlCommand verificationCommand = new(
-            """
-            SELECT status
-            FROM report_requests
-            WHERE report_name = @report_id;
-            """,
-            verificationConnection);
+            await using NpgsqlCommand verificationCommand = new(
+                """
+                SELECT status
+                FROM report_requests
+                WHERE report_name = @report_id;
+                """,
+                verificationConnection);
 
-        verificationCommand.Parameters.AddWithValue("report_id", reportId);
+            verificationCommand.Parameters.AddWithValue("report_id", reportId);
 
-        object? result = await verificationCommand.ExecuteScalarAsync();
+            object? result = await verificationCommand.ExecuteScalarAsync();
 
-        Assert.Equal("processing", result);
+            Assert.Equal("processing", result);
+        }
+        finally
+        {
+            await using NpgsqlConnection cleanupConnection =
+                await dataSource.OpenConnectionAsync();
+
+            await using NpgsqlCommand cleanupCommand = new(
+                "DELETE FROM report_requests WHERE report_name = @report_id;",
+                cleanupConnection);
+
+            cleanupCommand.Parameters.AddWithValue("report_id", reportId);
+
+            await cleanupCommand.ExecuteNonQueryAsync();
+        }
     }
 }
