@@ -70,3 +70,7 @@ Confirmed recurring availability: laptop Monday/Tuesday 60 minutes each; mobile 
 
 ## Npgsql integration test scaffold (2026-11-03)
 A .NET 10 xUnit project exists at `tests/ReportProcessing.IntegrationTests`. It references `MyProjFolder/MyProjFolder.csproj` and contains an async test that exercises the real `ReportProcessingService` against PostgreSQL using the `ConnectionStrings__ReportingDb` environment variable. It inserts a unique report request through `process_report_request`, then independently verifies `status = 'processing'` in `report_requests`. The test scaffold and project reference are committed on `AzureFunctionsBegin`; remote files were refetched. Build/test/runtime are not yet verified. Each run currently leaves its uniquely named integration-test row in the local database.
+
+
+## Npgsql integration verification (2026-11-03)
+Learner screenshot confirms the first xUnit integration test passed in Codespaces against the local PostgreSQL database: Functions project and test project built, 1 test discovered/executed, 1 passed, 0 failed/skipped. The test calls the real `ReportProcessingService`, which invokes `process_report_request`, then independently queries the inserted row and checks status `processing`. A subsequent code change adds cleanup in a `finally` block for the generated row; this cleanup change is committed but has not yet been rerun locally. CI workflow and PostgreSQL-backed GitHub Actions verification are still outstanding. This confirms local build/test only, not CI or Azure deployment.
