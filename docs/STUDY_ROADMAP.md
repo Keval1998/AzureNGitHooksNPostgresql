@@ -187,3 +187,10 @@ Recalculate estimates after the first laptop-side build/Npgsql attempt and after
 - GitHub Actions workflow added at `.github/workflows/dotnet-postgres-ci.yml`: PostgreSQL 16 service + health check, SQL bootstrap, QueueSender build, and integration-test run on push/PR for `AzureFunctionsBegin`.
 - Remaining verification: observe the actual Actions run and fix failures; rerun local integration test after the newly added cleanup code if practical; then concise Azure Functions configuration/identity/telemetry review and end-to-end interview walkthrough.
 - Workflow is source-committed but not yet CI-verified. Do not mark CI milestone complete until a passing Actions run is observed.
+
+
+## CI/CD verification checkpoint — 2026-11-03
+- **Verified:** learner screenshot shows five green GitHub Actions runs on `AzureFunctionsBegin`, including the latest commit `809376f`; observed run durations are approximately 54–67 seconds.
+- Workflow successfully provisions PostgreSQL 16, applies SQL setup, builds QueueSender, builds the Functions project through the test project reference, and runs the integration test. Successful runs after cleanup commit `2ac7ef5` validate the cleanup-enabled test as part of CI.
+- Sunday catch-up integration-test deliverable is complete; Monday CI workflow deliverable is also complete and CI-verified. Do not require filling a full hour when planned scope is complete. Exact focused minutes were not measured.
+- Remaining high-value work: Azure Functions configuration and binding model, managed identity/RBAC concepts, telemetry/logging, deployment pipeline strategy without cloud provisioning, then integrated interview walkthrough. Reassess Nov 7 schedule using confirmed remaining availability.
