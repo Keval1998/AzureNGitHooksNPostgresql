@@ -322,3 +322,13 @@ Learner-reported session start: 3:15 PM IST. Learner-reported checkpoint/end: 4:
 - **Scope/time accounting:** the planned concept discussion was covered through Key Vault topology and shared identity/RBAC. Identity selection remains open. Do not count unused/elapsed minutes as savings; no focused-minute measurement was supplied.
 - **Next step:** next mobile concept session, explain how a .NET application explicitly selects a user-assigned Managed Identity (client ID) when multiple identities are attached, then briefly revisit Function App settings and bindings. Continue on AzureFunctionsBegin; no cloud resources or deployment.
 - **Schedule:** target remains 2026-11-08. Remaining recurring capacity previously calculated as 3.5 hours (Nov 4–6 mobile plus 2 hours total across Nov 7–8), assuming attendance; deferred 45-minute laptop block remains unconfirmed and is not counted. Today's focused time is unknown, so feasibility remains **provisional / insufficient evidence**.
+
+
+## 2026-11-04 — Study session start: user-assigned Managed Identity selection
+- Start timestamp: 2026-11-04 10:04 IST (UTC+05:30), from the trusted conversation-local clock.
+- Available/planned budget: 30 minutes, learner confirmed the usual mobile-day allowance.
+- Planned scope: (1) explain why an app must select a user-assigned identity when multiple are attached (8m); (2) understand the client-ID selection pattern in .NET/Azure Identity (10m); (3) apply it to a concrete Key Vault scenario and answer one retrieval question (7m); (4) checkpoint and recap (5m).
+- Starting state: Managed Identity vs RBAC and system-assigned vs user-assigned identity were covered on Nov 3. Learner understands the identity's permissions are distinct from which identity the SDK uses. Open question: how the .NET app selects one attached user-assigned identity.
+- Repository state refreshed on AzureFunctionsBegin at commit 49adf16354905b1cf136d428811cd9e7bbda933d. Project targets .NET 10; current MyProjFolder.csproj does not directly reference Azure.Identity. This is a conceptual mobile session; no code edits/build/cloud provisioning planned.
+- Schedule: Nov 8, 2026 target is confirmed in the latest Nov 3 session record; 3.5 hours planned remaining capacity was provisional, subject to actual attendance. Today's 30 minutes are planned, not yet completed. Overall feasibility remains insufficient evidence until remaining estimates and actual slots are reconciled.
+- Focused minutes and end time: pending checkpoint; do not infer from elapsed wall-clock.
