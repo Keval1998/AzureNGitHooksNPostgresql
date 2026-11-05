@@ -332,3 +332,13 @@ Learner-reported session start: 3:15 PM IST. Learner-reported checkpoint/end: 4:
 - Repository state refreshed on AzureFunctionsBegin at commit 49adf16354905b1cf136d428811cd9e7bbda933d. Project targets .NET 10; current MyProjFolder.csproj does not directly reference Azure.Identity. This is a conceptual mobile session; no code edits/build/cloud provisioning planned.
 - Schedule: Nov 8, 2026 target is confirmed in the latest Nov 3 session record; 3.5 hours planned remaining capacity was provisional, subject to actual attendance. Today's 30 minutes are planned, not yet completed. Overall feasibility remains insufficient evidence until remaining estimates and actual slots are reconciled.
 - Focused minutes and end time: pending checkpoint; do not infer from elapsed wall-clock.
+
+
+## 2026-11-05 — Study session start: Function App configuration and settings
+- Start timestamp: 2026-11-05 10:33 IST (UTC+05:30), from the trusted conversation-local clock.
+- Available/planned budget: 30 minutes, learner confirmed.
+- Planned scope: (1) trace how the existing `Program.cs` reads `ConnectionStrings:ReportingDb` and how environment variable `ConnectionStrings__ReportingDb` maps to that key (10m); (2) distinguish local `local.settings.json` values from Azure Function App application settings and explain configuration precedence at a high level (10m); (3) apply the flow to the existing Npgsql registration and answer a short retrieval check (7m); (4) checkpoint/recap (3m).
+- Starting state: PostgreSQL/Npgsql integration and PostgreSQL-backed GitHub Actions CI are verified. Managed Identity selection, Client ID vs Principal ID, RBAC, and Key Vault reference concepts were covered on Nov 4. No Azure Portal access, Azure CLI, subscription, or cloud provisioning; today's session is mobile/conceptual, with no code edits or cloud changes planned.
+- Repository state: refreshed on `AzureFunctionsBegin` at commit `0f21e31d22b289a45c2165016c80f1151fee7819`; required agent instructions, project context, session log, and both roadmaps read. `Program.cs` and project file were inspected in the prior Nov 4 refresh; existing startup reads `GetConnectionString("ReportingDb")` and registers an `NpgsqlDataSource`.
+- Schedule: target Nov 8, 2026 per latest approved session entry; some older agent/roadmap text still says Nov 7. Provisional remaining availability from prior log was 3.5 hours through Nov 8, assuming all planned slots used; actual Nov 4 focused minutes and attendance remain unconfirmed. Today's 30 minutes are planned, not completed. Schedule feasibility remains insufficient evidence pending reconciliation.
+- Focused minutes and end time: pending checkpoint; do not infer from wall-clock elapsed time.
