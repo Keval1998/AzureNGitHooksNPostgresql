@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
@@ -18,6 +19,12 @@ public class ProcessReport
         ReportMeter.CreateCounter<long>(
             "report_registration_calls_succeeded_total",
             description: "Number of report registration calls completed successfully.");
+
+    private static readonly Histogram<double> RegistrationDuration =
+        ReportMeter.CreateHistogram<double>(
+            "report_registration_duration_ms",
+            unit: "ms",
+            description: "Duration of report registration database calls.");
 
     public ProcessReport(
         ILogger<ProcessReport> logger,
@@ -47,9 +54,19 @@ public class ProcessReport
                 "Queue message must contain a non-empty reportId.");
         }
 
-        await _reportProcessingService.RegisterReportRequestAsync(
-            request.ReportId,
-            cancellationToken);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+
+        try
+        {
+            await _reportProcessingService.RegisterReportRequestAsync(
+                request.ReportId,
+                cancellationToken);
+        }
+        finally
+        {
+            stopwatch.Stop();
+            RegistrationDuration.Record(stopwatch.Elapsed.TotalMilliseconds);
+        }
 
         SuccessfulRegistrationCalls.Add(1);
 
