@@ -200,3 +200,16 @@ Recalculate estimates after the first laptop-side build/Npgsql attempt and after
 The learner approved moving the target from 2026-11-07 to **2026-11-08**. This is a one-day calendar extension, not an automatic increase in study capacity. Existing availability is 30 minutes per mobile weekday (Wednesday-Friday) and 2 hours total across the weekend. For the remaining window, the provisional planned capacity is 90 minutes on Nov 4-6 plus 2 hours across Nov 7-8 = **3.5 hours**, assuming all slots are actually used. A further 45-minute laptop block was discussed as deferred capacity, but its date/time is not confirmed and must not be counted until confirmed.
 
 Priority for remaining work: (1) Azure Functions configuration/local-vs-app settings and bindings, (2) managed identity/RBAC and connection-string trade-offs, (3) existing logging/OpenTelemetry/Azure Monitor configuration, (4) deployment pipeline concepts and required cloud verification evidence, (5) integrated interview walkthrough. Keep implementation scope small; no Azure subscription, billing, cloud resources, or real cloud deployment. Deadline feasibility is **provisional / insufficient evidence** until the learner confirms use of the remaining 3.5-hour pattern and the extra 45-minute slot. Do not treat the date extension itself as new focused hours.
+
+
+## 2026-11-08 — Learning phase closeout (learner-selected stopping point)
+The learner elected to stop the current Azure/PostgreSQL/CI/CD timeline here. Treat the following scope as covered for this phase:
+- PostgreSQL fundamentals, indexing/EXPLAIN, PL/pgSQL, Npgsql integration and GitHub Actions PostgreSQL CI.
+- .NET 10 Azure Functions isolated worker, QueueSender/worker flow, Azure Storage Queue trigger, local Azurite emulation, retries and poison-queue behavior.
+- .NET configuration: project `appsettings.json`, local Functions `local.settings.json` / Core Tools `Values`, Azure Function App application settings, environment-variable mapping and configuration precedence.
+- Logging, .NET metrics instrumentation (Counter and Histogram), OpenTelemetry concepts, and conditional Azure Monitor exporter configuration.
+- CI/CD workflow authored in GitHub Actions YAML and verified by five green Actions runs; PostgreSQL integration test passed locally and in CI.
+
+**Evidence limits:** latest Histogram change is remotely committed/refetched on `AzureFunctionsBegin`, but its local build result was still pending at closeout. No Azure subscription/resources/deployment were used. Application Insights ingestion and end-to-end distributed tracing were not verified. The learner can represent local Functions/Azurite development and CI/CD, but must not claim production Azure deployment or live Application Insights monitoring.
+
+**Status:** learning phase closed at learner request on 2026-11-08. No further tasks are scheduled. Optional future extension: deploy the existing app to Azure, including Function App, Storage Account, Application Insights, PostgreSQL hosting/connectivity, secrets/identity, and a deployment stage in GitHub Actions.
