@@ -16,10 +16,10 @@ builder.ConfigureFunctionsWebApplication();
 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING")))
 {
     builder.Services.AddOpenTelemetry()
-    .WithMetrics(metrics =>
-        metrics.AddMeter("ReportService"))
-    .UseFunctionsWorkerDefaults()
-    .UseAzureMonitorExporter();
+        .WithMetrics(metrics =>
+            metrics.AddMeter("ReportService"))
+        .UseFunctionsWorkerDefaults()
+        .UseAzureMonitorExporter();
 }
 
 string reportingConnectionString =
