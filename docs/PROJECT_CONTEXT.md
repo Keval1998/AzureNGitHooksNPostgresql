@@ -82,3 +82,16 @@ Added `.github/workflows/dotnet-postgres-ci.yml` on `AzureFunctionsBegin`. It ru
 
 ## CI verification result (2026-11-03)
 Learner screenshot confirms five successful GitHub Actions runs on `AzureFunctionsBegin`, including the latest workflow run for commit `809376f`. The runs completed in approximately 54–67 seconds. The workflow therefore has observed CI success for PostgreSQL 16 service provisioning/health, SQL initialization, QueueSender build, and the PostgreSQL-backed xUnit integration test. Successful runs after test-cleanup commit `2ac7ef5` also execute the cleanup-enabled test source. Local integration test was separately observed passing 1/1 before cleanup was added. Distinguish this from Azure deployment, which remains intentionally out of scope.
+
+
+## 2026-11-08 — Study phase closeout and verified scope
+The learner chose to stop the current Azure/PostgreSQL/CI/CD study timeline at this point. Covered topics include PostgreSQL and Npgsql integration; PostgreSQL-backed GitHub Actions CI; .NET 10 isolated-worker Azure Functions; QueueSender and queue-trigger worker flow using Azure Storage Queues; local Azurite emulation; retry/poison-queue behavior; local/project/Azure Function App configuration distinctions; .NET logging and Counter/Histogram instrumentation; OpenTelemetry concepts and conditional Azure Monitor exporter setup.
+
+Evidence boundaries:
+- Local PostgreSQL integration test passed 1/1 by learner screenshot; five GitHub Actions workflow runs were shown green by learner screenshot.
+- Local Azurite queue happy path was verified by earlier learner screenshot.
+- Latest Histogram implementation is committed and remote-file verified on `AzureFunctionsBegin` at `9ea669ef1088bdb37ef28e7cc4860f371faa21b4`; its local build result was pending at the Nov 8 closeout.
+- No Azure subscription/resources/deployment were used. No Application Insights telemetry ingestion or end-to-end distributed tracing was verified.
+- Resume wording should distinguish local Functions/Azurite development and CI/CD from actual Azure cloud deployment/production operations.
+
+The current learning phase is closed at learner request. Actual Azure deployment is an optional future extension, not part of the completed scope.
