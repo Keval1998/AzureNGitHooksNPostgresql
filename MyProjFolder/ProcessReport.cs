@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Diagnostics.Metrics;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using MyProjFolder.Models;
@@ -10,6 +11,9 @@ public class ProcessReport
 {
     private readonly ILogger<ProcessReport> _logger;
     private readonly ReportProcessingService _reportProcessingService;
+    private readonly static Meter Meter = new ("ReportService");
+    private static readonly Counter<long> ProcessedReports =
+            Meter.CreateCounter<long>("reports_processed_total");
 
     public ProcessReport(
         ILogger<ProcessReport> logger,
@@ -42,6 +46,7 @@ public class ProcessReport
         await _reportProcessingService.RegisterReportRequestAsync(
             request.ReportId,
             cancellationToken);
+        ProcessedReports.Add(1);
 
         _logger.LogInformation(
             "Registered report request for ReportId: {ReportId}",
